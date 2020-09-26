@@ -12,7 +12,7 @@ use Core\Validator\Validator;
 		protected $model;
 		function __construct($model = null)
 		{
-			$this->model = ($model instanceof Model) ? $model : null;
+			$this->model = ($this->model instanceof Model) ? $this->model : $model;
 		}
 
 

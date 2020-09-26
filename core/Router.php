@@ -71,7 +71,7 @@ class Router extends Request
                 if ($value[0] == $this->request->method AND $value[1]==$this->getUri()){
                     if (isset($value[3]) AND $value[3] instanceof MiddlewareInterface){
                         if (!is_callable($value[2])){
-                            $filtered = $value[3]->handler($this->request,function ($self) use ($value){
+                            $filtered = $value[3]->handler($this->request,function () use ($value){
                                 return $this->callFunction($value[2]);
                             });
                             if (! $filtered instanceof Closure){
@@ -89,13 +89,13 @@ class Router extends Request
 
     }
 
-    public function methodNotAllowed(): string
+    public function methodNotAllowed()
     {
         header("content-type: application/json", null, 405);
         return json_encode(["Message"=>"Method Not Allowed","status"=> 405]);
     }
 
-    public function notFound(): string
+    public function notFound()
     {
         header("content-type: application/json", null, 404);
         return json_encode(["Message"=>"Not found","status"=> 404]);
@@ -132,6 +132,18 @@ class Router extends Request
 
     /**
      * @param $path
+     * @param $controller
+     */
+    public function crud($path, $controller)
+    {
+        $this->routes[] = ["GET",$path,$controller."@"."index"];
+        $this->routes[] = ["POST",$path,$controller."@"."store"];
+        $this->routes[] = ["PUT",$path,$controller."@"."update"];
+        $this->routes[] = ["DELETE",$path,$controller."@"."destroy"];
+    }
+
+    /**
+     * @param $path
      * @param $action
      */
     public function put($path, $action)
@@ -154,7 +166,7 @@ class Router extends Request
      * @return string
      * @throws Exception
      */
-    public function callFunction($url): string
+    public function callFunction($url)
     {
         $action = explode("@", $url);
 
@@ -173,8 +185,10 @@ class Router extends Request
         $controllerClass = new $controller;
 
         $response = call_user_func_array([$controllerClass, $method], [$this->request]);
-        return (is_array($response) OR is_object($response)) ? json_encode($response):$response;
-
+        if ((is_array($response) or is_object($response))) {
+            return json_encode($response);
+        }
+        return $response;
     }
 
     /**

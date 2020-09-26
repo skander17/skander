@@ -10,6 +10,7 @@ use Core\Connection;
         protected  $table;
         protected  $primaryKey = 'id';
         protected  $columns = [];
+        private $db;
         private $first = false;
         private $all = false;
 
@@ -31,7 +32,9 @@ use Core\Connection;
             $query = $conn->prepare("SELECT $select FROM $this->table");
             //$query->bindValue(1, $this->table,PDO::PARAM_STR);
             $query->execute();
-            return $query->fetchAll();
+            $result= $query->fetchAll();
+            $query->closeCursor();
+            return $result;
         }
         /**
          * @param  int $id
@@ -45,6 +48,7 @@ use Core\Connection;
             $query->bindValue(1, $id);
             $query->execute();
             $record = $query->fetchAll();
+            $query->closeCursor();
             return count($record)>0 ? (object) $record[0] : null;
         }
         public function getFill($data){
@@ -64,20 +68,22 @@ use Core\Connection;
             $conn = $this->getConnection();
             $fields = implode(',', $columns);
             $bind_values = implode(',', array_fill(0, count($columns), '?'));
-            $query = $conn->prepare("INSERT INTO $this->table ($fields) VALUES ($bind_values) RETURNING id");
+            $query = $conn->prepare("INSERT INTO $this->table ($fields) VALUES ($bind_values)");
             foreach ($values as $key => $value){
                 $query->bindValue(($key+1), $value);
             }
             $query->execute();
-            $record = $query->fetchAll();
+            $last = $conn->prepare("SELECT LAST_INSERT_ID();");
+            $record = $last->fetchAll();
             $id =  count($record)>0 ? $record[0]->id : null;
+            $query->closeCursor();
             return !empty($id) ? $this->find($id) : null;
         }
 
         /**
          * @param array $data
          * @param array $wheres
-         * @return object|null
+         * @return bool
          */
         public function update(array $data,array $wheres){
             if (empty($data)){
@@ -86,10 +92,46 @@ use Core\Connection;
             $data =  $this->getFill($data);
             $set_update ="";
             $i=0;
+            $result_wheres= "";
+            $values = array_merge(array_values($data),array_values($wheres));
             foreach ($data as $key => $value){
                 $set_update .= ($i!==0) ? ",$key = ?" : "$key = ?";
                 $i++;
             }
+            $i = 0;
+            foreach ($wheres as $key => $value){
+                $result_wheres .= ($i==0) ? "WHERE $key=?" : "AND $key=?";
+            }
+            $query = $this->getConnection()->prepare("
+                UPDATE $this->table
+                SET $set_update
+                $result_wheres
+            ");
+            foreach ($values as $key => $value){
+                $query->bindValue(($key+1), $value);
+            }
+
+            $result = $query->execute();
+            $query->closeCursor();
+            return !empty($result) ? $result : null;
+        }
+
+        public function delete($wheres){
+            $i = 0;
+            $result_wheres ="";
+            foreach ($wheres as $key => $value){
+                $result_wheres .= ($i==0) ? "WHERE $key=?" : "AND $key=?";
+            }
+            $query = $this->getConnection()->prepare("
+                DELETE FROM $this->table $result_wheres
+            ");
+            $values = array_values($wheres);
+            foreach ($values as $key => $value){
+                $query->bindValue(($key+1), $value);
+            }
+            $result = $query->execute();
+            $query->closeCursor();
+            return !empty($result) ? $result : null;
         }
 
         public function rawQuery($query,$binParams = []){

@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=yes initial-scale=1.0 maximum-scale=3.0 minium-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet"  href="<?= assets("/css/all.min.css"); ?>">
     <link rel="stylesheet"  href="<?= assets("/css/estilos.css"); ?>">
     <link rel="stylesheet"  href="<?= assets("/css/bootstrap.min.css"); ?>">
-    <title>Inicio</title>
+    <title>Usuarios</title>
 </head>
 <body>
 <div class="container-fluid">
@@ -55,70 +55,62 @@
             </li>
         </ul>
     </nav>
-
     <div class="row">
         <div class="col-12 text-center welcome d-flex justify-content-center flex-wrap align-items-end">
             <h2 class="w-100">Sistema de Administracion Trapeca</h2>
             <p class="w-100">
-                Sistema utilizado para el manejo de inventario, asi como la entrada y salida de la mercancia.
+                Sistema de Inventario Negro2000, sistema utilizado para el manejo de inventario, asi como la entrada y salida de la mercancia.
             </p>
         </div>
     </div>
 
     <div class="row col-12 d-flex justify-content-center estadisticas mt-5">
-        <div class="col-6 d-flex justify-content-center mt-3 flex-wrap ">
-            <div class="caja-estadisticas d-flex col-5 mr-1">
-                <div class="icono"><i class="fas fa-truck"></i></div>
-                <div class="texto">
-                    <h3>Proveedores</h3>
-                    <h6><?php echo $proveedor?></h6>
-                </div>
-            </div>
-            <div class="caja-estadisticas d-flex col-5">
-                <div class="icono"><i class="fad fa-user-tie"></i></div>
-                <div class="texto">
-                    <h3>Clientes</h3>
-                    <h6><?php echo $clientes?></h6></div>
-            </div>
-            <div class="caja-estadisticas d-flex col-5 mt-3 mr-1">
-                <div class="icono"><i class="fas fa-box-full"></i></div>
-                <div class="texto">
-                    <h3>Inventario</h3>
-                    <h6><?php echo $mercancia?></h6></div>
-            </div>
-            <div class="caja-estadisticas d-flex col-5 mt-3">
-                <div class="icono"><i class="fas fa-cart-plus"></i></div>
-                <div class="texto">
-                    <h3>Ventas</h3>
-                    <h6><?php echo $ventas?></h6></div>
-            </div>
-            <div class="caja-estadisticas d-flex col-5 mr-1">
-                <div class="icono"><i class="fas fa-dollar-sign"></i></div>
-                <div class="texto">
-                    <h3>Compras</h3>
-                    <h6><?php echo $compras?></h6>
-                </div>
-            </div>
-            <div class="caja-estadisticas d-flex col-5 mr-1">
-                <div class="icono"><i class=" fas fa-users"></i></div>
-                <div class="texto">
-                    <h3>Usuarios</h3>
-                    <h6><?php echo $usuarios?></h6>
-                </div>
-            </div>
+        <div>
+            <a href="mantenimiento/usuario/usuario_agregar.php" class="btn btn-primary">Agregar</a>
+            <a href="" class="btn btn-success">Lista</a>
         </div>
+
     </div>
 
+    <h1 class="text-center titulo" >Lista de usuarios</h1>
 
+    <div class="row">
+        <table class="tabla mb-5">
+            <thead class="thead">
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Estado</th>
+                <th>Modificar</th>
+                <th>Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($usuarios as $key => $usuario):?>
+                <tr>
+                    <td><?php echo $key++?></td>
+                    <td><?php echo $usuario['nombre']?></td>
+                    <td><?php echo $usuario['email']?></td>
+                    <td><?php echo $usuario['status']?></td>
+                    <td><a href="mantenimiento/usuario/usuario_modificar.php?id=<?php echo $usuario['id']?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a></td>
+                    <td><a href="mantenimiento/usuario/usuario_eliminar.php?id=<?php echo $usuario['id']?>"class="btn btn-danger"> <i class="fas fa-eraser"></i></a></td>
+                </tr>
+            <?php endforeach;?>
+
+            </tbody>
+        </table>
+    </div>
     <footer class="row d-flex  justify-content-center">
         <h1>Sistema de Administración Trapeca © 2020 </h1>
     </footer>
 </div>
 
 
+<footer class="row d-flex  justify-content-center">
+    <h1>Sistema de Administración Trapeca © 2020 </h1>
+</footer>
+</div>
 
-
-<script type="text/javascript" src="<?= assets("/js/jquery.min.js"); ?>"></script>
-<script type="text/javascript" src="<?= assets("/js/bootstrap.min.js"); ?>"></script>
 </body>
 </html>

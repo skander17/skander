@@ -15,7 +15,7 @@
 <body>
 <div style="text-align: center">
     <h2>
-        Unauthorized!
+        No tienes permiso para ver ésta página
     </h2>
     <a href="/login">
         Volver

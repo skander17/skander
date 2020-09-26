@@ -6,6 +6,8 @@
 	{
 		public $body;
 
+		public $params;
+
 		public $method;
 
 		function __construct()
@@ -19,6 +21,11 @@
 				case "PUT": $this->body = $this->getPutContent(); break;
                 default: $this->body = []; break;
 			}
+
+			$this->params = $_GET;
+			if (isset($this->body['_method'])){
+			    $this->method = strtoupper($this->body['_method']);
+            }
 		}
 
 		private function getPutContent()
