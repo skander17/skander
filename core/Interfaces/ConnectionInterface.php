@@ -8,6 +8,6 @@
 	 */
 	interface ConnectionInterface
 	{
-		public function connection() : PDO;
+		public static function connection() : PDO;
 
 	}

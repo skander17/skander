@@ -9,33 +9,34 @@
     /**
 	 *
 	 */
-	class Connection implements ConnectionInterface
+	class DB implements ConnectionInterface
 	{
 
-        private  $connection = null;
+        static public function getInstance(){
+            if (!self::$connection instanceof PDO){
+                self::$connection = self::connection();
+            }
+            return self::$connection;
+        }
+        /**
+         * @var null
+         */
+        private static $connection;
 
 
-        private $options = [
+        private static $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_PERSISTENT => true
         ];
-
-        function __construct()
-		{
-            if (!$this->connection instanceof PDO){
-                $this->connection = $this->connection();
-                //echo "conexion exitosa at " . microtime(true). "\n";
-            }
-		}
         /**
          * @return PDO
          */
-		public function connection() : PDO {
-            $config = $this->parse_config();
+		public static function connection(): PDO{
+            $config = self::parse_config();
             if (!$config) {
-                die('Error de conexion en base de datos');
+                die('Error en los datos de conexion en base de datos');
             }
             $host = "{$config['driver']}:host={$config['host']};port={$config['port']};dbname={$config['database']}";
-            return $this->connection =  new PDO($host, $config['db_user'], $config['db_password'], $this->options);
+            return self::$connection =  new PDO($host, $config['db_user'], $config['db_password'], self::$options);
         }
 
         /**
@@ -53,7 +54,7 @@
 		/**
 		 * @return array|null
 		 */
-		public function parse_config(){
+		public static function parse_config(){
 			$file_path = ROOT_PATH .  'config/config.json';
 			$file = fopen($file_path, 'r');
             $file_json = fread($file,1000);
@@ -65,6 +66,6 @@
          */
         public function getConnection()
         {
-            return $this->connection;
+            return self::getInstance();
         }
 	}

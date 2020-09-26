@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use Core\Connection;
+use Core\DB;
 
 
-	class Model extends Connection
+	class Model extends DB
 	{
         protected  $table;
         protected  $primaryKey = 'id';
         protected  $columns = [];
-        private $db;
-        private $first = false;
-        private $all = false;
 
 
         /**
