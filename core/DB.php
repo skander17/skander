@@ -12,16 +12,21 @@
 	class DB implements ConnectionInterface
 	{
 
+        /**
+         * @var null
+         */
+        private static $connection;
+
+        /**
+         * @return PDO|null
+         */
+
         static public function getInstance(){
             if (!self::$connection instanceof PDO){
                 self::$connection = self::connection();
             }
             return self::$connection;
         }
-        /**
-         * @var null
-         */
-        private static $connection;
 
 
         private static $options = [
@@ -43,8 +48,8 @@
          * @param string $key
          * @return mixed|null
          */
-        public function config($key){
-		    $config =  $this->parse_config();
+        public static function config($key){
+		    $config =  self::parse_config();
 		    if (isset($config->$key)){
 		        return $key;
             }

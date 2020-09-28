@@ -20,18 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1819f1a-2ef2-4e1b-9232-1614c13ca2fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Connection.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Interfaces/ConnectionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Interfaces/ConnectionInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/DB.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -53,7 +50,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../trapeca_b" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
@@ -71,7 +68,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601133987291</updated>
-      <workItem from="1601133998571" duration="8818000" />
+      <workItem from="1601133998571" duration="9466000" />
+      <workItem from="1601295051593" duration="1524000" />
+      <workItem from="1601332956711" duration="119000" />
     </task>
     <servers />
   </component>
@@ -88,15 +87,17 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="243" y="0" width="874" height="731" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1601148395138">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
     <state x="243" y="0" width="874" height="731" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.731@0.0.1366.731" timestamp="1601148395138" />
-    <state x="466" y="124" width="428" height="484" key="FileChooserDialogImpl" timestamp="1601134736621">
+    <state x="466" y="124" width="428" height="484" key="FileChooserDialogImpl" timestamp="1601296581624">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
+    <state x="466" y="124" key="FileChooserDialogImpl/0.0.1366.731/1366.0.1440.900@0.0.1366.731" timestamp="1601296581624" />
     <state x="466" y="124" width="428" height="484" key="FileChooserDialogImpl/0.0.1366.731@0.0.1366.731" timestamp="1601134736621" />
     <state x="500" y="292" width="359" height="149" key="NewPhpFileDialog" timestamp="1601134709497">
       <screen x="0" y="0" width="1366" height="731" />
@@ -110,9 +111,10 @@
       <screen x="0" y="0" width="1366" height="731" />
     </state>
     <state x="476" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.731@0.0.1366.731" timestamp="1601141642803" />
-    <state x="345" y="12" width="672" height="676" key="search.everywhere.popup" timestamp="1601139819776">
+    <state x="345" y="12" width="672" height="676" key="search.everywhere.popup" timestamp="1601296337864">
       <screen x="0" y="0" width="1366" height="731" />
     </state>
+    <state x="345" y="12" width="672" height="676" key="search.everywhere.popup/0.0.1366.731/1366.0.1440.900@0.0.1366.731" timestamp="1601296337864" />
     <state x="345" y="12" width="672" height="676" key="search.everywhere.popup/0.0.1366.731@0.0.1366.731" timestamp="1601139819776" />
   </component>
 </project>
