@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Users;
 use Core\Request;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     public function __construct()
     {

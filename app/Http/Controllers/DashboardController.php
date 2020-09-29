@@ -6,10 +6,9 @@ namespace App\Http\Controllers;
 
 use Core\Request;
 
-class DashboardController extends Controller
+class DashboardController extends BaseController
 {
     public function index(Request $request){
-        session_start();
         $data = [
             "proveedor"=>1,
             "clientes"=>1,
