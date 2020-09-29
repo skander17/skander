@@ -8,7 +8,7 @@
     use Core\Validator\ValidatorException as ValidatorExceptionAlias;
 
 
-    class UserController extends Controller
+    class UserController extends BaseController
 	{
 	    public function __construct()
         {
@@ -37,7 +37,6 @@
         /**
          * @param Request $request
          * @return string
-         * @throws ValidatorExceptionAlias
          */
         public function store(Request $request)
         {
@@ -54,10 +53,10 @@
             $user =  $this->model->create($request->all());
             return $this->index($request);
         }
+
         /**
          * @param Request $request
          * @return string
-         * @throws ValidatorExceptionAlias
          */
         public function update(Request $request)
         {
@@ -72,7 +71,6 @@
         /**
          * @param Request $request
          * @return string
-         * @throws ValidatorExceptionAlias
          */
         public function destroy(Request $request)
         {

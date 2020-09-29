@@ -2,19 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Model;
 use Core\Validator\Validator;
 
     class Controller
 	{
 	    use Validator;
-
-		protected $model;
-		function __construct($model = null)
-		{
-			$this->model = ($this->model instanceof Model) ? $this->model : $model;
-		}
-
 
 		public function json($response,$code=200)
 		{
