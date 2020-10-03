@@ -17,12 +17,12 @@ class AuthMiddleware implements MiddlewareInterface
      * @return mixed
      */
     public function handler(Request $request, Closure $next)
-        {
+    {
             $auth = (new AuthController());
             if ($auth->auth($request)){
                 return $next($request);
             }else{
-                $auth->redirect('/unauthorized');
+             return $auth->redirect('/unauthorized');
             }
-        }
+    }
 }

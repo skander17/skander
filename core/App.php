@@ -27,8 +27,14 @@ class App extends Router
     public function handler(Exception $exception)
     {
         if (!$this->config()['debug']){
-            header("content-type: application/json", null, 500);
-            $error = json_encode(["Message"=>"internal error","status"=> 500]);
+            if (Config::get('error') == 'json'){
+                header("content-type: application/json", null, 500);
+                $error = json_encode(["Message"=>"internal error","status"=> 500]);
+            }else{
+                header("content-type: text/html", null, 404);
+                $error =  '<h1 style="text-align: center">Internal Error</h1>';
+            }
+
         }else{
             $error = $exception->getMessage() . "\n" . $exception->getTraceAsString();
         }

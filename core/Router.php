@@ -91,14 +91,22 @@ class Router extends Request
 
     public function methodNotAllowed()
     {
-        header("content-type: application/json", null, 405);
-        return json_encode(["Message"=>"Method Not Allowed","status"=> 405]);
+        if (Config::get('error') == 'json'){
+            header("content-type: application/json", null, 405);
+            return json_encode(["Message"=>"Method Not Allowed","status"=> 405]);
+        }
+        header("content-type: text/html", null, 404);
+        return '<h1 style="text-align: center">Method Not Allowed</h1>';
     }
 
     public function notFound()
     {
-        header("content-type: application/json", null, 404);
-        return json_encode(["Message"=>"Not found","status"=> 404]);
+        if (Config::get('error') == 'json'){
+            header("content-type: application/json", null, 404);
+            return json_encode(["Message"=>"Not found","status"=> 404]);
+        }
+        header("content-type: text/html", null, 404);
+        return '<h1 style="text-align: center">Not Found</h1>';
     }
 
 

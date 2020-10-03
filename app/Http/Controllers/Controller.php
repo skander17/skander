@@ -8,13 +8,24 @@ use Core\Validator\Validator;
 	{
 	    use Validator;
 
-		public function json($response,$code=200)
+
+        /**
+         * @param $response
+         * @param int $code
+         * @return false|string
+         */
+        public function json($response, $code=200)
 		{
 			header("content-type: application/json", null, $code);
-            return json_encode($response);
+            return json_encode($response) ?: "";
 		}
 
-		public function view($name,$arguments=[])
+        /**
+         * @param $name
+         * @param array $arguments
+         * @return false|string
+         */
+        public function view($name, $arguments=[])
 		{
 		    if (!$this->viewExist($name)){
 		        return $this->importView("not_found", $arguments);
@@ -23,7 +34,12 @@ use Core\Validator\Validator;
 
 		}
 
-		public function importView($name,$arguments){
+        /**
+         * @param $name
+         * @param $arguments
+         * @return false|string
+         */
+        public function importView($name, $arguments){
             ob_start();
             extract($arguments);
             include ROOT_PATH . "helpers.php";
@@ -34,12 +50,19 @@ use Core\Validator\Validator;
             return $result;
         }
 
-		public function viewExist($name){
+        /**
+         * @param $name
+         * @return bool
+         */
+        public function viewExist($name){
             $resource = RESOURCE_PATH . "/views/{$name}.php";
 		    return file_exists($resource);
         }
 
+        /**
+         * @param string $uri
+         */
         public function redirect(string $uri){
-            header('location: ' . $uri);
+           return header('location: ' . $uri);
         }
 	}

@@ -53,10 +53,10 @@
             $user =  $this->model->create($request->all());
             return $this->index($request);
         }
-
         /**
          * @param Request $request
          * @return string
+         * @throws ValidatorExceptionAlias
          */
         public function update(Request $request)
         {
