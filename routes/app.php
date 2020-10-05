@@ -15,6 +15,8 @@ $router->middleware("AuthMiddleware",function (Router $router) {
         $router->get('/dashboard','DashboardController@index');
 
         $router->crud('/usuarios','UserController');
+        $router->crud('/clientes','ClientController');
+        $router->crud('/proveedores','ProviderController');
     });
 
 });

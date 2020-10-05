@@ -47,7 +47,11 @@ class View
      * @return string
      */
     public static function render($name, $arguments=[]){
-        self::importView($name, $arguments);
+        if (self::viewExist($name)){
+            self::importView($name, $arguments);
+        }else{
+            self::importView("not_found", $arguments);
+        }
         return self::$view;
     }
 }
