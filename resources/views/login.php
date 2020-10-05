@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <title>Iniciar Sesion</title>
     <meta name="viewport" content="width=device-width, user-scalable=yes initial-scale=1.0 maximum-scale=3.0 minium-scale=1.0">
-    <link rel="stylesheet"  href="css/all.min.css">
-    <link rel="stylesheet" href="css/formulario.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet"  href="<?= assets("/icons/css/all.min.css"); ?>">
+    <link rel="stylesheet"  href="<?= assets("/css/estilos.css"); ?>">
+    <link rel="stylesheet"  href="<?= assets("/css/formulario.css"); ?>">
+    <link rel="stylesheet"  href="<?= assets("/css/bootstrap.min.css"); ?>">
 </head>
 <body class="login">
 
@@ -37,5 +37,5 @@
 
 </div>
 </body>
-<script src="js/val_formlogin.js"></script>
+<script src="<?= assets("/js/val_formlogin.js"); ?>"></script>
 </html>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Users;
-use Core\Request;
+use Core\Request\Request;
 
 class AuthController extends BaseController
 {
@@ -37,7 +37,7 @@ class AuthController extends BaseController
      * @param Request $request
      * @return string
      */
-    public function login(Request $request): string
+    public function login(Request $request)
     {
         $errores= "";
         $res= null;

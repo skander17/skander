@@ -1,0 +1,83 @@
+  *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+
+    body.form-body{
+      background: rgb(243, 247, 243);
+    }
+
+    body.login{
+      background-image: url(../../img/login.jpg);
+      background-repeat: no-repeat;
+      background-size: 100% 100vh;
+      background-position: fixed;
+    }
+  
+form a{
+  font-size: 30px;
+  position: absolute;
+  left: 0;
+  color: rgb(175, 160, 22);
+}
+form a:hover{
+  color: rgb(226, 211, 76);
+}
+
+form i.icon{
+  line-height: 20px;
+  color: rgb(14, 73, 6);
+  position: absolute;
+  left: -5px;
+}
+ 
+.formulario div.form-group{
+  padding: 10px 0px;
+  margin: 30px 0px;
+}
+
+.formulario div.form-group span{
+  position: absolute;
+  font-size: 18px;
+}
+
+.formulario div.form-group span.correcto{
+  color: rgb(14, 73, 6);
+}
+
+.formulario div.form-group span.error{
+  color: rgb(160, 15, 15);
+}
+
+.formulario div.form-group.login i.icon{
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: 5px 0px 0px 5px;
+ margin-top: 1px;
+ left: -12px;
+}
+
+.formulario div.form-group.login span.error{
+  background: red;
+  color: #fff;
+  padding: 5px 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+  position: absolute;
+  left: 30%;
+  right: 30%;
+}
+
+.formulario div.form-group.login span.error::before{
+  content: "";
+  border-top: solid 12px transparent;
+  border-left: solid 12px  transparent;
+  border-right: solid 12px transparent;
+  border-bottom: solid 12px  red;
+  position: absolute;
+  left: 45%;
+  top: -20px;
+}

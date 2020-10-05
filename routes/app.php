@@ -1,7 +1,7 @@
 <?php
 
 
-use Core\Router;
+use Core\Router\Router;
 
 $router->get("/","AuthController@home");
 $router->post("/login","AuthController@login");

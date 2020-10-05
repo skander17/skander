@@ -4,8 +4,8 @@
 
 
     use App\Models\Users;
-    use Core\Request;
-    use Core\Validator\ValidatorException as ValidatorExceptionAlias;
+    use Core\Request\Request;
+    use Core\Validator\ValidatorException;
 
 
     class UserController extends BaseController
@@ -21,8 +21,13 @@
          */
         public function index(Request $request)
         {
-		    $users = $this->model->getAll();
-            return $this->view("admin/usuarios",["usuarios"=>$users]);
+            $data = [];
+            $data['action'] = $request->params['action'] ?? 'listar';
+            $data['usuarios'] = $this->model->getAll();
+            if ($data['action'] == 'editar'){
+                $data['usuario'] = $this->model->find($request->params['id']);
+            }
+            return $this->view("admin/usuarios",$data);
 		}
         /**
          * @param Request $request
@@ -46,26 +51,48 @@
             $messages = [
                 "email.required" => "El Email es obligatorio"
             ];
-            $validations = [];//$this->validator($request->all(),$rules,$messages);
-            if (count($validations)>0){
-                return $this->json($validations,422);
+            $user = false;
+            $data = [];
+            try {
+                $validations = $this->validator($request->all(), $rules, $messages);
+            } catch (ValidatorException $e) {
+                $validations = ["Error interno al validar"];
             }
-            $user =  $this->model->create($request->all());
-            return $this->index($request);
+            if (count($validations) > 0){
+                $data['errors'] = $validations;
+                $data['action'] = "crear";
+            }else{
+                $user =  $this->model->create($request->all());
+            }
+            return ($user) ?  $this->index($request) : $this->view("admin/usuarios",$data);
         }
         /**
          * @param Request $request
          * @return string
-         * @throws ValidatorExceptionAlias
          */
         public function update(Request $request)
         {
-            $validations = [];//$this->validator($request->all(),$rules,$messages);
-            if (count($validations)>0){
-                return $this->json($validations,422);
+            $rules =  [
+                "email"=>"email"
+            ];
+            $messages = [
+                "email" => "El Email es obligatorio"
+            ];
+            $updated = false;
+            try {
+                $validations = $this->validator($request->all(), $rules, $messages);
+            } catch (ValidatorException $e) {
+                echo $e->getMessage();
+                $validations = ["Error interno al validar"];
             }
-            $user =  $this->model->update($request->all(),["id"=>$request->params['id']]);
-            return $this->index($request);
+            if (count($validations) > 0){
+                $data['errors'] = $validations;
+                $data['action'] = "editar";
+            }else{
+                $updated =  $this->model->update($request->all(),["id"=>$request->id]);
+            }
+            $data['usuario'] = (object) $request->body;
+            return ($updated) ?  $this->index($request) : $this->view("admin/usuarios",$data);
         }
 
         /**
@@ -74,7 +101,7 @@
          */
         public function destroy(Request $request)
         {
-            $user =  $this->model->delete(["id"=>$request->params['id']]);
+            $user =  $this->model->delete(["id"=>$request->id]);
             return $this->index($request);
         }
 

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Core\DB;
 
+	use Core\DB\DB;
 
-	class Model extends DB
+    class Model extends DB
 	{
         protected  $table;
         protected  $primaryKey = 'id';
@@ -70,9 +70,10 @@ use Core\DB;
                 $query->bindValue(($key+1), $value);
             }
             $query->execute();
-            $last = $conn->prepare("SELECT LAST_INSERT_ID();");
+            $last = $conn->prepare("SELECT LAST_INSERT_ID() as id;");
+            $last->execute();
             $record = $last->fetchAll();
-            $id =  count($record)>0 ? $record[0]->id : null;
+            $id =  count($record)>0 ? $record[0]['id'] : null;
             $query->closeCursor();
             return !empty($id) ? $this->find($id) : null;
         }

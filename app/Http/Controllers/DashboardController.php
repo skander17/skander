@@ -4,7 +4,8 @@
 namespace App\Http\Controllers;
 
 
-use Core\Request;
+
+use Core\Request\Request;
 
 class DashboardController extends BaseController
 {
@@ -17,6 +18,6 @@ class DashboardController extends BaseController
             "ventas"=>1,
             "usuarios"=>1
         ];
-        return $this->view('dashboard',$data);
+        return $this->view('admin/dashboard',$data);
     }
 }

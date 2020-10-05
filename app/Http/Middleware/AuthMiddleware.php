@@ -7,7 +7,7 @@ namespace App\Http\Middleware;
 use App\Http\Controllers\AuthController;
 use Closure;
 use Core\Interfaces\MiddlewareInterface;
-use Core\Request;
+use Core\Request\Request;
 
 class AuthMiddleware implements MiddlewareInterface
 {

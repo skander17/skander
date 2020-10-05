@@ -1,6 +1,7 @@
 <?php
 
-use Core\Router;
+
+use Core\Router\Router;
 
 $router->group('/api',function (Router $router){
 

@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Core\Config\Config;
+use Core\Router\Router;
 use Exception;
 
 class App extends Router
@@ -14,19 +16,10 @@ class App extends Router
             $this->handler($e);
         }
     }
-    /**
-     * @return object
-     */
-    public function  config(){
-        $file_path = ROOT_PATH .  'config/config.json';
-        $file = fopen($file_path, 'r');
-        $file_json = fread($file,1000);
-        return json_decode($file_json, true);
-    }
 
     public function handler(Exception $exception)
     {
-        if (!$this->config()['debug']){
+        if (!Config::get('debug')){
             if (Config::get('error') == 'json'){
                 header("content-type: application/json", null, 500);
                 $error = json_encode(["Message"=>"internal error","status"=> 500]);

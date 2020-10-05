@@ -1,6 +1,6 @@
 <?php
 
-use Core\Router;
+use Core\Router\Router;
 
 require __DIR__ . '/../vendor/autoload.php';
     define('ROOT_PATH', dirname(__DIR__) . '/');

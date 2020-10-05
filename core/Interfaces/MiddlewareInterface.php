@@ -2,7 +2,7 @@
 namespace Core\Interfaces;
 
 use Closure;
-use Core\Request;
+use Core\Request\Request;
 
 /**
  *
