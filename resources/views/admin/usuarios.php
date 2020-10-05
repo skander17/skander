@@ -128,7 +128,7 @@
                 <tbody>
                 <?php foreach($usuarios as $key => $usuario):?>
                     <tr>
-                        <td><?php echo $key++?></td>
+                        <td><?php echo $key+1?></td>
                         <td><?php echo $usuario['nombre']?></td>
                         <td><?php echo $usuario['email']?></td>
                         <td><?php echo $usuario['status']?></td>

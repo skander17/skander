@@ -20,7 +20,7 @@ class ClientController extends BaseController
      */
     public function index(Request $request)
     {
-        $clientes = $this->model->list();
+        $clientes['clientes'] = $this->model->list();
         return $this->view("admin/clients",$clientes);
     }
     /**
@@ -58,7 +58,7 @@ class ClientController extends BaseController
      */
     public function destroy(Request $request)
     {
-        $user =  $this->model->delete(["id"=>$request->id]);
+        $user =  $this->model->delete($request->id);
         return $this->index($request);
     }
 

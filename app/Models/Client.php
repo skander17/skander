@@ -8,13 +8,19 @@ class Client extends Model
 {
     protected  $table = "clientes";
     protected  $columns = ["id", "id_deta"];
+    private $identifier;
+
+    public function __construct()
+    {
+        $this->identifier = new Identifier();
+    }
 
     /**
      * @return array
      */
     public function list()
     {
-        return parent::rawQuery("SELECT * FROM clientes JOIN identificacion ON clientes.id_deta = identificacion.id");
+        return parent::rawQuery("SELECT *, clientes.id as id FROM clientes JOIN identificacion ON clientes.id_deta = identificacion.id");
     }
 
     /**
@@ -23,7 +29,7 @@ class Client extends Model
      */
     public function create(array $data)
     {
-        $identifier = (new Identifier())->create($data);
+        $identifier = $this->identifier->create($data);
         if ($identifier){
             $data['id_deta'] = $identifier->id;
         }
@@ -37,11 +43,13 @@ class Client extends Model
      */
     public function update($data, $wheres = [])
     {
-        return (new Identifier())->update($data,["id"=>$data['id_deta']]);
+        return $this->identifier->update($data,["id"=>$data['id_deta']]);
     }
 
-    public function delete($wheres)
+    public function delete($id)
     {
-        return parent::delete($wheres);
+        $client = $this->find($id);
+        parent::delete(['id'=>$id]);
+        return $this->identifier->delete(['id'=>$client->id_deta]);
     }
 }
