@@ -25,11 +25,12 @@ class AuthController extends BaseController
         $user = $this->model->rawQuery("SELECT * FROM usuarios WHERE id = ? AND status = ?",[$session,1]);
         return (count($user)>0);
     }
+
     public function home(Request $request){
         if ($this->auth($request)) {
             $this->redirect('/admin/dashboard');
         } else {
-            $this->redirect('login');
+            return $this->view("login");
         }
     }
 
@@ -59,7 +60,7 @@ class AuthController extends BaseController
         $data = [
             "errores"=>$errores
         ];
-        return $this->view("login",$data);
+        return $this->view("/login",$data);
     }
     /**
      * @param Request $request

@@ -29,7 +29,7 @@ class Router extends Request
 
     public function getUri()
     {
-        return (isset($_SERVER['PATH_INFO'])) ? $_SERVER['PATH_INFO'] : "/";
+        return (isset($_SERVER['PATH_INFO'])) ? $_SERVER['PATH_INFO'] : (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "/");
     }
 
     public function getParams()
