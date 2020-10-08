@@ -16,4 +16,7 @@ class Product extends Model
              FROM productos LEFT JOIN categorias ON categorias.id = productos.id_cate
         ");
     }
+    public static function get($id){
+        return (new self())->find($id);
+    }
 }

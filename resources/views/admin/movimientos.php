@@ -22,20 +22,25 @@
     </div>
     <?php if( isset($action)  AND $action !== 'listar') :?>
         <h1  class="titulo"><?= $action ?> Movimientos</h1>
-        <?php if (isset($errors)):?>
-            <div>
-                Existen errores, por favor revise.
-                Para más detalles ver la variable $erroes
-            </div>
-        <?php endif;?>
         <div class="row mt-3">
             <div class="col-md-6 offset-3">
+                <?php if (isset($errors)):?>
+                    <?php foreach ($errors as $error): ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?=$error?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif;?>
                 <form action="movimientos" method="POST">
-                    <?php if ($action == 'editar'): ?>
+                    <?php if (!empty($movimiento->id_movimiento)): ?>
                         <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="id" value="<?= $movimiento->id ?>">
+                        <input type="hidden" name="id_movimiento" value="<?= $movimiento->id_movimiento ?>">
+                    <?php endif;?>
+                    <?php if (!empty($movimiento->id_producto)): ?>
+                        <input type="hidden" name="id_producto" value="<?= $movimiento->id_producto ?>">
                     <?php endif;?>
                     <div class="form-group">
+                        <label for="nombre_prod" class="col-form-label ">Nombre Producto: </label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
@@ -45,30 +50,30 @@
                             <input type="text" placeholder="Nombre" name="nombre_prod" id="nombre_prod" class="form-control" value=<?= $movimiento->nombre_prod ?> >
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label for="precio_v" class="col-form-label ">Precio Venta: </label>
+                        <label for="precio_v" class="col-form-label ">Precio Venta de Producto: </label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <i class="fas fa-dollar-sign icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Precio Venta" id="precio_v" name="precio_v" class="form-control" value=<?= $movimiento->precio_v ?? 0 ?>>
+                            <input type="number" placeholder="Precio Venta" id="precio_v" name="precio_v" class="form-control" value=<?= $movimiento->precio_v ?? 0 ?>>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="precio_c" class="col-form-label ">Precio Compra: </label>
+                        <label for="precio_c" class="col-form-label ">Precio Compra de Producto: </label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <i class="fas fa-dollar-sign icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Precio Compra" id="precio_c" name="precio_c" class="form-control" value=<?= $movimiento->precio_c ?? 0?>>
+                            <input type="number" placeholder="Precio Compra" id="precio_c" name="precio_c" class="form-control" value=<?= $movimiento->precio_c ?? 0?>>
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="precio_c" class="col-form-label ">Categoría de Producto: </label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
@@ -88,21 +93,34 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="form-check form-check-inline">
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-check-circle icon"></i>
-                                    </div>
+                        <label for="tipo" class="col-form-label ">Tipo de Operación: </label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-arrows-alt-h icon"></i>
                                 </div>
                             </div>
-                            <input type="checkbox"
-                                   class="form-check-input ml-2"
-                                   value=<?=$movimiento->disponible?>
-                                   id="disponible" name="disponible"
-                                   class="form-control" <?= boolval($movimiento->disponible) ? "checked" : "" ?>
-                            >
-                            <label class="form-check-label" for="inlineCheckbox1">Disponible</label>
+                            <select class="form-control" id="tipo" name="tipo">
+                                <option selected value=''>Tipo...</option>
+                                <?php foreach ($tipos as $tipo):?>
+                                    <?php if (isset($movimiento->tipo) AND $movimiento->tipo == $tipo['id_tipo']) : ?>
+                                        <option selected value="<?=$tipo['id_tipo'] ?>"> <?=$tipo['nombre_tipo'] ?></option>
+                                    <?php else:?>
+                                        <option value="<?=$tipo['id_tipo'] ?>"> <?=$tipo['nombre_tipo'] ?></option>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidad" class="col-form-label ">Cantidad de Unidades: </label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-boxes icon"></i>
+                                </div>
+                            </div>
+                            <input type="number" placeholder="Cantidad" name="cantidad" id="cantidad" class="form-control" value=<?= $movimiento->cantidad ?> >
                         </div>
                     </div>
                     <div class="form-group">
@@ -123,13 +141,15 @@
                     <thead class="thead">
                     <tr>
                         <th>#</th>
-                        <th>Nombre</th>
+                        <th>Nombre Producto</th>
                         <th>Precio Venta</th>
                         <th>Precio Compra</th>
                         <th>Categoría</th>
-                        <th>Disponible</th>
+                        <th>Cantidad</th>
+                        <th>Total en Stock</th>
+                        <th>Tipo de Movimiento</th>
+                        <th>Registrador</th>
                         <th>Modificar</th>
-                        <th>Eliminar</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -140,17 +160,11 @@
                             <td><?php echo $movimiento['precio_v']?></td>
                             <td><?php echo $movimiento['precio_c']?></td>
                             <td><?php echo $movimiento['nombre_cate']?></td>
-                            <td><?php echo boolval($movimiento['disponible']) ? "Si" :"No"?></td>
-                            <td><a href="movimientos?action=editar&id=<?php echo $movimiento['id'] ?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a></td>
-                            <td>
-                                <form action="movimientos" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="id" value="<?php echo $movimiento['id'] ?>">
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fas fa-eraser"></i>
-                                    </button>
-                                </form>
-                            </td>
+                            <td><?php echo $movimiento['cantidad_movimiento']?></td>
+                            <td><?php echo $movimiento['inventario_cantidad']?></td>
+                            <td><?php echo $movimiento['nombre_tipo']?></td>
+                            <td><?php echo $movimiento['nombre_usuario']?></td>
+                            <td><a href="movimientos?action=editar&id_movimiento=<?php echo $movimiento['id_movimiento'] ?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a></td>
                         </tr>
                     <?php endforeach;?>
 

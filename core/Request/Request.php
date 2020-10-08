@@ -57,7 +57,7 @@
 
         public function has(string $string)
         {
-            return (isset($this->body[$string]) or $this->params[$string]);
+            return (isset($this->body[$string]) OR isset($this->params[$string]));
         }
 
     }

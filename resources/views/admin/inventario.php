@@ -28,6 +28,7 @@
                     <th>Cantidad</th>
                     <th>Disponible</th>
                     <th>Cargar</th>
+                    <th>Retiro</th>
                 </tr>
                 </thead>
                     <tbody>
@@ -39,7 +40,18 @@
                             <td><?php echo $producto['nombre_cate']?></td>
                             <td><?php echo $producto['cantidad']?></td>
                             <td><?php echo boolval($producto['disponible']) ? "Si" :"No"?></td>
-                            <td><a href="movimientos?action=crear&producto_id=<?php echo $producto['id_producto'] ?>" class="btn btn-warning"> <i class="fas fa-upload"></i></a></td>
+                            <td>
+                                <a href="movimientos?action=crear&producto_id=<?php echo $producto['id_producto'] ?>&tipo=1"
+                                   class="btn btn-primary">
+                                    <i class="fas fa-upload"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="movimientos?action=crear&producto_id=<?php echo $producto['id_producto'] ?>&tipo=2"
+                                   class="btn btn-danger">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </td>
                         </tr>
                     <?php endforeach;?>
                     </tbody>

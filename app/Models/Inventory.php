@@ -18,4 +18,23 @@ class Inventory extends Model
             LEFT JOIN categorias ON categorias.id = productos.id_cate
         ");
     }
+
+    public function getInventoryByProduct($id_producto){
+        $inventario = $this->rawQuery("
+            SELECT * FROM inventario WHERE id_producto = ?
+        ",[$id_producto]);
+        return count($inventario)>0 ? $inventario[0] : null;
+    }
+
+    public function updateQuantity($id,$type,$quantity)
+    {
+        $type = intval($type);
+       $inventory= $this->find($id);
+       if ($type == 1){
+           $quantity = intval($inventory->cantidad )+ intval($quantity);
+       }elseif(in_array(intval($type),[2,3,4])){
+           $quantity = intval($inventory->cantidad ) - intval($quantity);
+       }
+        return $this->update(["cantidad"=>$quantity],["id"=>$id]);
+    }
 }
