@@ -55,4 +55,9 @@
 		    return (array) $this->body;
         }
 
-	}
+        public function has(string $string)
+        {
+            return (isset($this->body[$string]) or $this->params[$string]);
+        }
+
+    }

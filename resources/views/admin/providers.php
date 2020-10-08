@@ -15,13 +15,13 @@
 
     <div class="row col-12 d-flex justify-content-center estadisticas mt-5">
         <div>
-            <a href="clientes?action=crear" class="btn btn-primary">Agregar</a>
-            <a href="clientes?action=listar" class="btn btn-success">Lista</a>
+            <a href="proveedores?action=crear" class="btn btn-primary">Agregar</a>
+            <a href="proveedores?action=listar" class="btn btn-success">Lista</a>
         </div>
 
     </div>
     <?php if( isset($action)  AND $action !== 'listar') :?>
-        <h1  class="titulo"><?= $action ?> Clientes</h1>
+        <h1  class="titulo"><?= $action ?> Proveedor</h1>
         <?php if (isset($errors)):?>
             <div>
                 Existen errores, por favor revise.
@@ -30,10 +30,10 @@
         <?php endif;?>
         <div class="row mt-3">
             <div class="col-md-6 offset-3">
-                <form action="clientes" method="POST">
+                <form action="proveedores" method="POST">
                     <?php if ($action == 'editar'): ?>
                         <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="id" value="<?= $cliente->id ?>">
+                        <input type="hidden" name="id" value="<?= $proveedor->id ?>">
                     <?php endif;?>
                     <div class="form-group">
                         <div class="input-group mb-2">
@@ -42,7 +42,7 @@
                                     <i class="fas fa-user icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Nombre:" name="nombre" id="nombre" class="form-control" value=<?= $cliente->nombre ?> >
+                            <input type="text" placeholder="Nombre:" name="nombre" id="nombre" class="form-control" value=<?= $proveedor->nombre ?> >
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                                     <i class="fas fa-envelope icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Correo Electronico" id="email" name="email" class="form-control" value=<?= $cliente->email ?>>
+                            <input type="text" placeholder="Correo Electronico" id="email" name="email" class="form-control" value=<?= $proveedor->correo ?>>
                         </div>
                     </div>
                     <?php if ($action == 'crear'): ?>
@@ -111,11 +111,11 @@
         </div>
     <?php else: ?>
 
-        <h1 class="text-center titulo" >Lista de Clientes</h1>
+        <h1 class="text-center titulo" >Lista de Proveedores</h1>
 
         <div class="row">
             <div class="col-10 offset-1">
-            <table class="tabla mb-5">
+                <table class="tabla mb-5">
                 <thead class="thead">
                     <tr>
                         <th>#</th>
@@ -128,18 +128,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($clientes as $key => $cliente):?>
+                    <?php foreach($proveedores as $key => $proveedor):?>
                         <tr>
                             <td><?php echo $key+1?></td>
-                            <td><?php echo $cliente['nombre']?></td>
-                            <td><?php echo $cliente['apellido']?></td>
-                            <td><?php echo $cliente['direccion']?></td>
-                            <td><?php echo $cliente['correo']?></td>
-                            <td><a href="clientes?action=editar&id=<?= $cliente['id']?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a></td>
+                            <td><?php echo $proveedor['nombre']?></td>
+                            <td><?php echo $proveedor['apellido']?></td>
+                            <td><?php echo $proveedor['direccion']?></td>
+                            <td><?php echo $proveedor['correo']?></td>
+                            <td><a href="proveedores?action=editar&id=<?= $proveedor['id']?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a></td>
                             <td>
-                                <form action="clientes" method="POST">
+                                <form action="proveedores" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="id" value="<?=$cliente['id']?>">
+                                    <input type="hidden" name="id" value="<?=$proveedor['id']?>">
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fas fa-eraser"></i>
                                     </button>

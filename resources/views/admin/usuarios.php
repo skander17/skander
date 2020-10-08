@@ -114,39 +114,43 @@
         <h1 class="text-center titulo" >Lista de usuarios</h1>
 
         <div class="row">
-            <table class="tabla mb-5">
+            <div class="col-10 offset-1">
+                <table class="tabla mb-5">
                 <thead class="thead">
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Estado</th>
-                    <th>Modificar</th>
-                    <th>Eliminar</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach($usuarios as $key => $usuario):?>
                     <tr>
-                        <td><?php echo $key+1?></td>
-                        <td><?php echo $usuario['nombre']?></td>
-                        <td><?php echo $usuario['email']?></td>
-                        <td><?php echo $usuario['status']?></td>
-                        <td><a href="usuarios?action=editar&id=<?= $usuario['id']?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a></td>
-                        <td>
-                            <form action="usuarios" method="POST">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="id" value="<?=$usuario['id']?>">
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fas fa-eraser"></i>
-                                </button>
-                            </form>
-                        </td>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Estado</th>
+                        <th>Rol</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
                     </tr>
-                <?php endforeach;?>
+                    </thead>
+                    <tbody>
+                    <?php foreach($usuarios as $key => $usuario):?>
+                        <tr>
+                            <td><?php echo $key+1?></td>
+                            <td><?php echo $usuario['nombre']?></td>
+                            <td><?php echo $usuario['email']?></td>
+                            <td><?php echo $usuario['status'] ==1 ? "Activo":"Bloqueado" ;?></td>
+                            <td><?php echo $usuario['rol_nombre']?></td>
+                            <td><a href="usuarios?action=editar&id=<?= $usuario['id']?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a></td>
+                            <td>
+                                <form action="usuarios" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="id" value="<?=$usuario['id']?>">
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fas fa-eraser"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     <?php endif;?>
 

@@ -12,11 +12,25 @@ $router->get("/unauthorized","AuthController@unauthorized");
 $router->middleware("AuthMiddleware",function (Router $router) {
 
     $router->group('/admin',function (Router $router){
-        $router->get('/dashboard','DashboardController@index');
+        $router->get('/estadisticas','DashboardController@index');
 
         $router->crud('/usuarios','UserController');
         $router->crud('/clientes','ClientController');
         $router->crud('/proveedores','ProviderController');
+        $router->crud('/productos','ProductController');
+        $router->crud('/monedas','CoinController');
+        $router->crud('/compras','PurchaseController');
+        $router->crud('/categorias','CategoryController');
+
+        //sólo tiene la función index para que no se puedan realizar el CRUD.
+        // El crud de ésta tabla se hace por medio de compras, ventas y productos
+        $router->get('/inventario','InventoryController@index');
+
+        //Solo definí éstas porque un movimiento no debería borrarse, se aplican otras tecnicas contables para "cancelarse"
+        $router->get('/movimientos','MovementController@index');
+        $router->post('/movimientos','MovementController@store');
+        $router->put('/movimientos','MovementController@update');
+
     });
 
 });

@@ -106,7 +106,7 @@ color: #fff;
 
 tbody tr:nth-child(odd){
 	background: rgb(61, 134, 71);
-	
+
 	text-align: center;
 	padding: 20px;
 }
@@ -126,7 +126,7 @@ tbody tr:nth-child(odd) td{
 }
 
 tbody tr:nth-child(even) td{
-	color: #fff;	
+	color: #fff;
 	font-weight: 600;
 }
 

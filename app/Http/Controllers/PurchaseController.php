@@ -4,32 +4,19 @@
 namespace App\Http\Controllers;
 
 
-
-use App\Models\Provider;
+use App\Models\Purchase;
 use Core\Request\Request;
 
-class ProviderController extends BaseController
+class PurchaseController extends BaseController
 {
     public function __construct()
     {
-        parent::__construct(new Provider());
+        parent::__construct(New Purchase());
     }
 
-
-    /**
-     * @param Request $request
-     * @return string
-     */
-    public function index(Request $request)
-    {
-        $data['proveedores'] = $this->model->list();
-        $data['action'] = $request->params['action'] ?? 'listar';
-        if ($data['action'] == 'editar'){
-            $data['proveedor'] = $this->model->find($request->params['id']);
-        }else{
-            $data['proveedor'] = $this->model->cleanObject($this->model->identifier()->getColumns());
-        }
-        return $this->view("admin/providers",$data);
+    public function index(Request $request){
+        $data['compras'] = $this->model->list();
+        return $this->view('purchase',$data);
     }
     /**
      * @param Request $request
@@ -38,6 +25,9 @@ class ProviderController extends BaseController
     public function show(Request $request)
     {
         $users = (!empty($request->params['id'])) ? $this->model->find($request->params['id']) : null;
+        if (empty($users)){
+            return $this->json(["message"=>"Product not Exist","status"=>404],404);
+        }
         return $this->json(["usuario"=>$users]);
     }
 
@@ -66,9 +56,7 @@ class ProviderController extends BaseController
      */
     public function destroy(Request $request)
     {
-        if ($request->has('id')){
-            $provider =  $this->model->destroy($request->id);
-        }
+        $user =  $this->model->delete($request->id);
         return $this->index($request);
     }
 }

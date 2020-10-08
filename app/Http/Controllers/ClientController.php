@@ -20,8 +20,12 @@ class ClientController extends BaseController
      */
     public function index(Request $request)
     {
-        $clientes['clientes'] = $this->model->list();
-        return $this->view("admin/clients",$clientes);
+        $data['clientes'] = $this->model->list();
+        $data['action'] = $request->params['action'] ?? 'listar';
+        $data['cliente'] = ($data['action'] == 'editar')
+            ? $this->model->find($request->params['id'])
+            :$this->model->cleanObject($this->model->identifier()->getColumns());
+        return $this->view("admin/clients",$data);
     }
     /**
      * @param Request $request
@@ -58,7 +62,7 @@ class ClientController extends BaseController
      */
     public function destroy(Request $request)
     {
-        $user =  $this->model->delete($request->id);
+        $user =  $this->model->destroy($request->id);
         return $this->index($request);
     }
 

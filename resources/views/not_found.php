@@ -14,7 +14,7 @@
     <h2>
        Ésta página no existe
     </h2>
-    <a href="/">
+    <a href="<?= !empty($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/" ?>">
         Volver
     </a>
 </div>

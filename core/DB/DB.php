@@ -31,7 +31,7 @@
          * @return PDO|null
          */
 
-        static public function getInstance(){
+        static private function getInstance(){
             if (!self::$connection instanceof PDO){
                 self::$connection = self::connection();
             }

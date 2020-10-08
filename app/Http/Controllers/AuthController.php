@@ -28,7 +28,7 @@ class AuthController extends BaseController
 
     public function home(Request $request){
         if ($this->auth($request)) {
-            $this->redirect('/admin/dashboard');
+            $this->redirect('/admin/estadisticas');
         } else {
             return $this->view("login");
         }
@@ -54,7 +54,7 @@ class AuthController extends BaseController
             if ($res){
                 session_start();
                 $_SESSION['usuario'] = $res['id'];
-                $this->redirect('/admin/dashboard');
+                $this->redirect('/admin/estadisticas');
             }
         }
         $data = [

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-top color-nav d-flex justify-content-center">
     <ul class="nav d-nav text-white d-flex justify-content-center">
         <li class="nav-item">
-            <a href="/admin/dashboard" class="nav-link">
+            <a href="/admin/estadisticas" class="nav-link">
                 Estadisticas
             </a>
         </li>
@@ -17,18 +17,38 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/admin/mercancias" class="nav-link">
-                Mercancias
+            <a href="/admin/categorias" class="nav-link">
+                Categorias
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/admin/productos" class="nav-link">
+                Productos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/admin/inventario" class="nav-link">
+                Inventario
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/admin/movimientos" class="nav-link">
+                Movimientos de Inventario
             </a>
         </li>
         <li class="nav-item">
             <a href="/admin/compras" class="nav-link">
-                Compras Realizadas
+                Compras
             </a>
         </li>
         <li class="nav-item">
             <a href="/admin/ventas" class="nav-link">
-                Ventas Realizadas
+                Ventas
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/admin/monedas" class="nav-link">
+                Monedas
             </a>
         </li>
         <li class="nav-item">

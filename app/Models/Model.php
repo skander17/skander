@@ -20,6 +20,15 @@ namespace App\Models;
         }
 
         /**
+         * @param array $extra
+         * @return object
+         */
+
+        public function cleanObject($extra = []){
+            $fill = array_merge($extra,$this->columns);
+            return (object) array_combine($fill,(array_fill(0,count($fill),null)));
+        }
+        /**
          * @return array
          */
 
@@ -114,7 +123,7 @@ namespace App\Models;
             return !empty($result) ? $result : null;
         }
 
-        public function delete($wheres){
+        public function delete(array $wheres){
             $i = 0;
             $result_wheres ="";
             foreach ($wheres as $key => $value){
@@ -148,4 +157,7 @@ namespace App\Models;
         public function checkHash(string $password, string $hash) : bool {
             return password_verify($password, $hash);
         }
-	}
+        public function getColumns(){
+            return $this->columns;
+        }
+    }

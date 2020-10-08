@@ -8,12 +8,25 @@ class Provider extends Model
 {
     protected  $table = "proveedores";
     protected  $columns = ["id", "razon_social", "id_deta"];
+    private $identifier;
+
+    public function __construct()
+    {
+        $this->identifier = new Identifier();
+    }
     /**
      * @return array
      */
     public function list()
     {
-        return parent::rawQuery("SELECT * FROM proveedores JOIN identificacion ON proveedores.id_deta = identificacion.id");
+        return parent::rawQuery("SELECT * FROM proveedores LEFT JOIN identificacion ON proveedores.id_deta = identificacion.id");
+    }
+
+    /**
+     * @return Identifier
+     */
+    public function identifier(){
+        return $this->identifier;
     }
 
     /**
@@ -39,9 +52,11 @@ class Provider extends Model
         return (new Identifier())->update($data,["id"=>$data['id_deta']]);
     }
 
-    public function delete($wheres)
+    public function destroy($id)
     {
-        return parent::delete($wheres);
+        $provider = $this->find($id);
+        parent::delete(['id'=>$id]);
+        return $this->identifier->delete(['id'=>$provider->id_deta]);
     }
 
 }

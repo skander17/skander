@@ -23,10 +23,9 @@
         {
             $data = [];
             $data['action'] = $request->params['action'] ?? 'listar';
-            $data['usuarios'] = $this->model->getAll();
-            if ($data['action'] == 'editar'){
-                $data['usuario'] = $this->model->find($request->params['id']);
-            }
+            $data['usuarios'] = $this->model->list();
+            $data['usuario']  = ($data['action'] == 'editar')
+                ?$this->model->find($request->params['id']) : $data['usuario'] = $this->model->cleanObject() ;
             return $this->view("admin/usuarios",$data);
 		}
         /**
@@ -101,7 +100,9 @@
          */
         public function destroy(Request $request)
         {
-            $user =  $this->model->delete(["id"=>$request->id]);
+            if ($request->has("id")){
+                $user =  $this->model->delete(["id"=>$request->id]);
+            }
             return $this->index($request);
         }
 

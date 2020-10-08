@@ -22,7 +22,9 @@ class Client extends Model
     {
         return parent::rawQuery("SELECT *, clientes.id as id FROM clientes JOIN identificacion ON clientes.id_deta = identificacion.id");
     }
-
+    public function identifier(){
+        return $this->identifier;
+    }
     /**
      * @param array $data
      * @return object|null
@@ -46,7 +48,7 @@ class Client extends Model
         return $this->identifier->update($data,["id"=>$data['id_deta']]);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $client = $this->find($id);
         parent::delete(['id'=>$id]);
