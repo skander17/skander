@@ -1,6 +1,6 @@
 {
 	"driver":"mysql",
-	"host": "172.100.0.10",
+	"host": "dbtrapeca",
 	"port": "3306",
 	"db_user":"root",
 	"db_password": "123456",

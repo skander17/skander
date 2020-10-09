@@ -8,14 +8,14 @@ namespace Core\Validator;
 trait Validator
 {
 
-    private array $defaultMessages = [
+    private $defaultMessages = [
         "required"=>"This item is required",
         "int"=> "This item most be a integer",
         "string"=> "This item most be a string",
         "email"=> "This item is not a valid email"
     ];
 
-    private array $defaultValidators = [
+    private $defaultValidators = [
         "required",
         "int",
         "string",
@@ -46,7 +46,7 @@ trait Validator
             if (!$this->isValidate($validator) ){
                 throw new ValidatorException("The Validator $validator not exist");
             }
-            if (!$this->$validator($item,$data)){
+            if (key_exists($item,$data) AND !$this->$validator($item,$data)){
                 $messagesBag["$item.$validator"] = isset($messages["$item.$validator"])
                     ? $messages["$item.$validator"]
                     : $this->defaultMessage($validator);
@@ -82,6 +82,6 @@ trait Validator
         return $this->defaultMessages[$validator];
     }
     public function isValidate($validator){
-        return !in_array($this->defaultValidators,$validator);
+        return in_array($validator, $this->defaultValidators);
     }
 }

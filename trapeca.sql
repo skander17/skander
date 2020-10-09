@@ -10,7 +10,7 @@ CREATE TABLE `identificacion` (
   `CI` varchar(255) DEFAULT NULL
 );
 
-CREATE TABLE `cliente` (
+CREATE TABLE `clientes` (
   `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `id_deta` int(11) DEFAULT NULL
 );
@@ -95,12 +95,22 @@ CREATE TABLE `monedas` (
 CREATE TABLE `usuarios` (
   `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255),
-  `correo` varchar(255),
-  `contrasena` varchar(255),
+  `apellido` varchar(255),
+  `email` varchar(255),
+  `password` varchar(255),
+  `rol` int(1),
+  `status` int(1),
   `token` varchar(255)
 );
 
-ALTER TABLE `cliente` ADD FOREIGN KEY (`id_deta`) REFERENCES `identificacion` (`id`);
+CREATE TABLE `roles` (
+  `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255),
+  `descripcion` varchar(255),
+  `slug` varchar(255)
+);
+
+ALTER TABLE `clientes` ADD FOREIGN KEY (`id_deta`) REFERENCES `identificacion` (`id`);
 
 ALTER TABLE `proveedores` ADD FOREIGN KEY (`id_deta`) REFERENCES `identificacion` (`id`);
 
@@ -112,7 +122,7 @@ ALTER TABLE `movimiento_inventario` ADD FOREIGN KEY (`id_inventario`) REFERENCES
 
 ALTER TABLE `det_ventas` ADD FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id_venta`);
 
-ALTER TABLE `ventas` ADD FOREIGN KEY (`cliente`) REFERENCES `cliente` (`id`);
+ALTER TABLE `ventas` ADD FOREIGN KEY (`cliente`) REFERENCES `clientes` (`id`);
 
 ALTER TABLE `compras` ADD FOREIGN KEY (`proveedor`) REFERENCES `proveedores` (`id`);
 
@@ -124,7 +134,9 @@ ALTER TABLE `productos` ADD FOREIGN KEY (`id_cate`) REFERENCES `categorias` (`id
 
 ALTER TABLE `movimiento_inventario` ADD FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`id`);
 
-CREATE INDEX `id_deta` ON `cliente` (`id_deta`);
+ALTER TABLE `usuarios` ADD FOREIGN KEY (`rol`) REFERENCES `roles` (`id`);
+
+CREATE INDEX `id_deta` ON `clientes` (`id_deta`);
 
 CREATE INDEX `id_deta` ON `proveedores` (`id_deta`);
 
