@@ -10,13 +10,15 @@ namespace App\Models;
         protected  $table;
         protected  $primaryKey = 'id';
         protected  $columns = [];
+        protected  $alias = [];
+        protected  $hidden = [];
 
 
         /**
-         * @return string
+         * @return array
          */
-        public function sayHello(){
-            return "a simple message from model";
+        public function getAlias(){
+            return $this->alias;
         }
 
         /**
@@ -34,7 +36,8 @@ namespace App\Models;
 
         public function getAll(){
             $conn = $this->getConnection();
-            $select = implode(",", $this->columns);
+            $cleansed = array_diff($this->columns,$this->hidden);
+            $select = implode(",", $cleansed);
             $query = $conn->prepare("SELECT $select FROM $this->table");
             //$query->bindValue(1, $this->table,PDO::PARAM_STR);
             $query->execute();
@@ -48,7 +51,8 @@ namespace App\Models;
          */
         public function find($id){
             $conn = $this->getConnection();
-            $select = implode(",", $this->columns);
+            $cleansed = array_diff($this->columns,$this->hidden);
+            $select = implode(",", $cleansed);
             $query = $conn->prepare("SELECT $select FROM  $this->table WHERE $this->primaryKey=? LIMIT 1");
             //$query->bindValue(1, $this->primaryKey,PDO::PARAM_STR);
             $query->bindValue(1, $id);

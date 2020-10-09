@@ -14,22 +14,39 @@
     <?php import('admin/components/header'); ?>
 
     <div class="row col-12 d-flex justify-content-center estadisticas mt-5">
-        <div>
-            <a href="clientes?action=crear" class="btn btn-primary">Agregar</a>
-            <a href="clientes?action=listar" class="btn btn-success">Lista</a>
+        <div class="row col-12 d-flex justify-content-center mt-5">
+            <a href="clientes?action=crear" class="mx-2">
+                <button class="btn btn-success  btn-lg"
+                        data-toggle="tooltip" data-placement="bottom" title="Agregar Usuario">
+                    <i class="fas fa-plus-circle "></i>
+                </button>
+            </a>
+            <a href="clientes?action=listar"  class="mx-2">
+                <button class="btn btn-info btn-lg"
+                        data-toggle="tooltip" data-placement="bottom" title="Listar">
+                    <i class="fas fa-list"></i>
+                </button>
+            </a>
+            <a href="reportes/clientes" target="_blank"  class="mx-2">
+                <button class="btn btn-danger  btn-lg"
+                        data-toggle="tooltip" data-placement="bottom" title="Exportar">
+                    <i class="fas fa-file-pdf "></i>
+                </button>
+            </a>
         </div>
 
     </div>
     <?php if( isset($action)  AND $action !== 'listar') :?>
         <h1  class="titulo"><?= $action ?> Clientes</h1>
-        <?php if (isset($errors)):?>
-            <div>
-                Existen errores, por favor revise.
-                Para más detalles ver la variable $erroes
-            </div>
-        <?php endif;?>
         <div class="row mt-3">
             <div class="col-md-6 offset-3">
+                <?php if (isset($errors)):?>
+                    <?php foreach ($errors as $error): ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?=$error?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif;?>
                 <form action="clientes" method="POST">
                     <?php if ($action == 'editar'): ?>
                         <input type="hidden" name="_method" value="PUT">
@@ -73,34 +90,9 @@
                                     <i class="fas fa-envelope icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Correo Electronico" id="email" name="email" class="form-control" value=<?= $cliente->email ?>>
+                            <input type="text" placeholder="Correo Electronico" id="email" name="email" class="form-control" value=<?= $cliente->correo ?>>
                         </div>
                     </div>
-                    <?php if ($action == 'crear'): ?>
-                        <div class="form-group">
-
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-key icon"></i>
-                                    </div>
-                                </div>
-                                <input type="password" placeholder="Contraseña" id="pass" name="pass" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-group">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-key icon"></i>
-                                        </div>
-                                    </div>
-                                    <input type="password" placeholder="Repetir Contraseña" id="rpass" name="rpass" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif;?>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block"  style="text-transform: capitalize;">
                             <?= $action ?> el Usuario

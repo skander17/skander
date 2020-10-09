@@ -22,7 +22,7 @@ class AuthController extends BaseController
         }
         $session = $_SESSION['usuario'];
 
-        $user = $this->model->rawQuery("SELECT * FROM usuarios WHERE id = ? AND status = ?",[$session,1]);
+        $user = $this->model->rawQuery("SELECT * FROM usuarios WHERE id = ? AND status = ? AND rol IN (1,2,3)",[$session,1]);
         return (count($user)>0);
     }
 
@@ -45,11 +45,18 @@ class AuthController extends BaseController
         if(isset($request->body['email']) && isset($request->body['pass'])){
             $usuario = $_POST['email'];
             $pass = $_POST['pass'];
-            $val_user = $this->model->rawQuery("SELECT * FROM usuarios WHERE status = ? AND email = ? AND password = ? LIMIT 1",[1,$usuario,$pass]);
+            $val_user = $this->model->rawQuery("SELECT * FROM usuarios WHERE email = ? AND password = ? LIMIT 1",[$usuario,$pass]);
             if (count($val_user)==0){
-                $errores .='<div class="alert alert-danger mt-3 text-center"><strong class=" display-1"><i class="far fa-exclamation-triangle"></i><br>Error</strong> <br>Correo o clave incorrecta.</div>';
+                $errores .='<div class="alert alert-danger mt-3 text-center"><i class="far fa-exclamation-triangle mx-5"></i><br>Error: Correo o clave incorrecta.</div>';
             }
-            $res = $val_user[0];
+            if ($val_user[0]['status'] <> 1){
+                $errores .='
+                <div class="alert alert-danger text-center">
+                    <i class="fas fa-exclamation-triangle mx-4"></i>Error: Usuario bloqueado
+                </div>';
+                $val_user = [];
+            }
+            $res = count($val_user) > 0 ? $val_user[0] : null;
 
             if ($res){
                 session_start();

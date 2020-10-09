@@ -17,7 +17,7 @@ class Provider extends Model
     /**
      * @return array
      */
-    public function list()
+    public function getAll()
     {
         return parent::rawQuery("SELECT * FROM proveedores LEFT JOIN identificacion ON proveedores.id_deta = identificacion.id");
     }

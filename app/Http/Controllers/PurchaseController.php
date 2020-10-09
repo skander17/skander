@@ -15,7 +15,7 @@ class PurchaseController extends BaseController
     }
 
     public function index(Request $request){
-        $data['compras'] = $this->model->list();
+        $data['compras'] = $this->model->getAll();
         return $this->view('purchase',$data);
     }
     /**

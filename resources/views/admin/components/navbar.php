@@ -36,7 +36,7 @@
                 Movimientos de Inventario
             </a>
         </li>
-        <li class="nav-item">
+        <!--li class="nav-item">
             <a href="/admin/compras" class="nav-link">
                 Compras
             </a>
@@ -45,7 +45,7 @@
             <a href="/admin/ventas" class="nav-link">
                 Ventas
             </a>
-        </li>
+        </li-->
         <li class="nav-item">
             <a href="/admin/monedas" class="nav-link">
                 Monedas

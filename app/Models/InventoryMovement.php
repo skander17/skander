@@ -11,7 +11,7 @@ class InventoryMovement extends Model
     protected $primaryKey = "id_movimiento";
     protected $columns = ["id_movimiento","cantidad","usuario","tipo","id_inventario"];
 
-    public function list(){
+    public function getAll(){
         return $this->rawQuery("
             SELECT *,productos.id as id_producto, usuarios.nombre as nombre_usuario, inventario.cantidad as inventario_cantidad,
              movimiento_inventario.cantidad as cantidad_movimiento 

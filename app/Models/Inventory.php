@@ -11,7 +11,7 @@ class Inventory extends Model
     protected $columns = ["id","code","id_producto","cantidad"];
 
 
-    public function list(){
+    public function getAll(){
         return $this->rawQuery("
             SELECT * from inventario 
             LEFT JOIN productos ON inventario.id_producto=productos.id

@@ -11,7 +11,7 @@ class Purchase extends Model
     protected $columns = ["id_compra","proveedor","monto_total","tipo_pago"];
 
 
-    public function list(){
+    public function getAll(){
         $purchases = $this->rawQuery(" 
         SELECT compras.*,(
                 SELECT JSON_ARRAYAGG(det_compras.id) FROM det_compras where compras.id_compra=det_compras.id_compra

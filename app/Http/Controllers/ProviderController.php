@@ -22,7 +22,7 @@ class ProviderController extends BaseController
      */
     public function index(Request $request)
     {
-        $data['proveedores'] = $this->model->list();
+        $data['proveedores'] = $this->model->getAll();
         $data['action'] = $request->params['action'] ?? 'listar';
         if ($data['action'] == 'editar'){
             $data['proveedor'] = $this->model->find($request->params['id']);

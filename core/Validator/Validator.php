@@ -46,7 +46,7 @@ trait Validator
             if (!$this->isValidate($validator) ){
                 throw new ValidatorException("The Validator $validator not exist");
             }
-            if (!$this->$validator($item,$data)){
+            if (key_exists($item,$data) AND !$this->$validator($item,$data)){
                 $messagesBag["$item.$validator"] = isset($messages["$item.$validator"])
                     ? $messages["$item.$validator"]
                     : $this->defaultMessage($validator);

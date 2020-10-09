@@ -10,6 +10,7 @@
 
     class UserController extends BaseController
 	{
+	    public $name = "Usuarios";
 	    public function __construct()
         {
             parent::__construct(new Users());
@@ -23,7 +24,8 @@
         {
             $data = [];
             $data['action'] = $request->params['action'] ?? 'listar';
-            $data['usuarios'] = $this->model->list();
+            $data['usuarios'] = $this->model->getAll();
+            $data['roles'] = $this->model->getAllRoles();
             $data['usuario']  = ($data['action'] == 'editar')
                 ?$this->model->find($request->params['id']) : $data['usuario'] = $this->model->cleanObject() ;
             return $this->view("admin/usuarios",$data);
@@ -52,6 +54,8 @@
             ];
             $user = false;
             $data = [];
+            $data_store= $request->all();
+            $data_store['status'] = intval([$data_store['status']]);
             try {
                 $validations = $this->validator($request->all(), $rules, $messages);
             } catch (ValidatorException $e) {
@@ -61,7 +65,7 @@
                 $data['errors'] = $validations;
                 $data['action'] = "crear";
             }else{
-                $user =  $this->model->create($request->all());
+                $user =  $this->model->create($data_store);
             }
             return ($user) ?  $this->index($request) : $this->view("admin/usuarios",$data);
         }
@@ -78,8 +82,10 @@
                 "email" => "El Email es obligatorio"
             ];
             $updated = false;
+            $data_update = $request->all();
+            $data_update['status'] = intval($data_update['status']);
             try {
-                $validations = $this->validator($request->all(), $rules, $messages);
+                $validations = $this->validator($data_update, $rules, $messages);
             } catch (ValidatorException $e) {
                 echo $e->getMessage();
                 $validations = ["Error interno al validar"];
@@ -88,7 +94,7 @@
                 $data['errors'] = $validations;
                 $data['action'] = "editar";
             }else{
-                $updated =  $this->model->update($request->all(),["id"=>$request->id]);
+                $updated =  $this->model->update($data_update, ["id"=>$request->id]);
             }
             $data['usuario'] = (object) $request->body;
             return ($updated) ?  $this->index($request) : $this->view("admin/usuarios",$data);

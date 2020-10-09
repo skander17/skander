@@ -20,7 +20,7 @@ class InventoryController extends BaseController
      */
     public function index(Request $request)
     {
-        $data['productos'] = $this->model->list();
+        $data['productos'] = $this->model->getAll();
         return $this->view("admin/inventario",$data);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Model;
+use App\Services\Auth;
+use App\Services\Report;
 use Core\Request\Request;
 
 class BaseController extends Controller
@@ -17,6 +19,29 @@ class BaseController extends Controller
     {
         $this->model = ($this->model instanceof Model) ? $this->model : $model;
     }
+
+    public function report(Request $request){
+        $data = $this->model->getAll();
+        $username = Auth::currentUser()->nombre;
+        $name = "Reporte de $this->name";
+        $index = (count($this->model->getAlias()) > 0) ? $this->model->getAlias() : $this->model->getColumns();
+        return Report::report()
+            ->setData($data)
+            ->setIndex($index)
+            ->setDate($this->getCurrentDate())
+            ->setTitle($name)
+            ->setUsername($username)
+            ->render('automatic')
+        ;
+    }
+
+    public function getCurrentDate(){
+        return date("d-m-Y h:i:s a", ( time() - (4*60*60) ));
+    }
+
+
+
+
     //Cuando estudien POO implementan ésto, es un CRUD ya listo, sólo te copiar y pegar
     /**
      * @param Request $request

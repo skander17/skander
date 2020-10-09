@@ -8,6 +8,7 @@ class Client extends Model
 {
     protected  $table = "clientes";
     protected  $columns = ["id", "id_deta"];
+    protected  $alias = ["id"=>"id", "nombre"=>"Nombre","correo"=>"Email","status_name"=>"Estado","rol_nombre"=>"Rol"];
     private $identifier;
 
     public function __construct()
@@ -18,10 +19,14 @@ class Client extends Model
     /**
      * @return array
      */
-    public function list()
+    public function getAll()
     {
         return parent::rawQuery("SELECT *, clientes.id as id FROM clientes JOIN identificacion ON clientes.id_deta = identificacion.id");
     }
+
+    /**
+     * @return Identifier
+     */
     public function identifier(){
         return $this->identifier;
     }

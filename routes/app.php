@@ -31,6 +31,18 @@ $router->middleware("AuthMiddleware",function (Router $router) {
         $router->post('/movimientos','MovementController@store');
         $router->put('/movimientos','MovementController@update');
 
-    });
+        $router->group('/reportes',function (Router $router) {
+            $router->get('/usuarios','UserController@report');
+            $router->get('/clientes','ClientController@report');
+            $router->get('/proveedores','ProviderController@report');
+            $router->get('/productos','ProductController@report');
+            $router->get('/monedas','CoinController@report');
+            $router->get('/compras','PurchaseController@report');
+            $router->get('/categorias','CategoryController@report');
+            $router->get('/inventario','InventoryController@report');
+            $router->get('/movimientos','MovementController@report');
+        });
+
+        });
 
 });

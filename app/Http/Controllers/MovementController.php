@@ -25,7 +25,7 @@ class MovementController extends BaseController
      * @return string
      */
     public function index(Request $request){
-        $data['movimientos'] = $this->model->list();
+        $data['movimientos'] = $this->model->getAll();
         $data['tipos'] = $this->model->getTypes();
         $data['categorias'] = (new Category())->getAll();
         $data['movimiento'] = $this->model->cleanObject((new Product())->getColumns());

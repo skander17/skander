@@ -9,6 +9,7 @@ use Core\Request\Request;
 
 class ClientController extends BaseController
 {
+    public $name = "Clientes";
     public function __construct()
     {
         parent::__construct(new Client());
@@ -20,7 +21,7 @@ class ClientController extends BaseController
      */
     public function index(Request $request)
     {
-        $data['clientes'] = $this->model->list();
+        $data['clientes'] = $this->model->getAll();
         $data['action'] = $request->params['action'] ?? 'listar';
         $data['cliente'] = ($data['action'] == 'editar')
             ? $this->model->find($request->params['id'])

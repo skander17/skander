@@ -149,7 +149,7 @@
                         <th>Total en Stock</th>
                         <th>Tipo de Movimiento</th>
                         <th>Registrador</th>
-                        <th>Modificar</th>
+                        <!--th>Modificar</th-->
                     </tr>
                     </thead>
                     <tbody>
@@ -164,7 +164,9 @@
                             <td><?php echo $movimiento['inventario_cantidad']?></td>
                             <td><?php echo $movimiento['nombre_tipo']?></td>
                             <td><?php echo $movimiento['nombre_usuario']?></td>
-                            <td><a href="movimientos?action=editar&id_movimiento=<?php echo $movimiento['id_movimiento'] ?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a></td>
+                            <!--td>
+                            <a href="movimientos?action=editar&id_movimiento=<?php echo $movimiento['id_movimiento'] ?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a>
+                            </td>
                         </tr>
                     <?php endforeach;?>
 
