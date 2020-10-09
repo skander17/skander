@@ -10,6 +10,7 @@ use Core\Request\Request;
 
 class ProductController extends BaseController
 {
+    public $name = "Productos";
     public function __construct()
     {
         parent::__construct(new Product());

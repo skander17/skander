@@ -26,6 +26,11 @@ class ClientController extends BaseController
         $data['cliente'] = ($data['action'] == 'editar')
             ? $this->model->find($request->params['id'])
             :$this->model->cleanObject($this->model->identifier()->getColumns());
+
+        if (empty($data['cliente'])){
+            $data['action'] ='listar';
+            $data['errors'] = ["El cliente no existe"];
+        }
         return $this->view("admin/clients",$data);
     }
     /**

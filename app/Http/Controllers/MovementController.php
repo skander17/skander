@@ -15,6 +15,7 @@ use Core\Validator\ValidatorException;
 class MovementController extends BaseController
 {
     private $inventario;
+    public $name = "Movimientos de Inventario";
     public function __construct($model = null){
         parent::__construct(new InventoryMovement());
         $this->inventario = new Inventory();

@@ -8,6 +8,8 @@ class Provider extends Model
 {
     protected  $table = "proveedores";
     protected  $columns = ["id", "razon_social", "id_deta"];
+    protected  $alias = [
+        "id"=>"Id", "razon_social"=>"Razón Social", "telefono"=>"Telefono","direccion"=>"Dirección","dni"=>"DNI"];
     private $identifier;
 
     public function __construct()
@@ -19,9 +21,18 @@ class Provider extends Model
      */
     public function getAll()
     {
-        return parent::rawQuery("SELECT * FROM proveedores LEFT JOIN identificacion ON proveedores.id_deta = identificacion.id");
+        return parent::rawQuery("SELECT *, proveedores.id as id 
+            FROM proveedores LEFT JOIN identificacion ON proveedores.id_deta = identificacion.id");
     }
+    public function find($id)
+    {
+        $client =  parent::rawQuery("
+            SELECT *, proveedores.id as id FROM proveedores JOIN identificacion ON proveedores.id_deta = identificacion.id
+                WHERE proveedores.id = ?
+        ",[$id]);
 
+        return count($client) > 0 ? (object) $client[0] : null;
+    }
     /**
      * @return Identifier
      */

@@ -10,6 +10,8 @@ use Core\Request\Request;
 
 class ProviderController extends BaseController
 {
+
+    public $name = "Proveedores";
     public function __construct()
     {
         parent::__construct(new Provider());
@@ -24,10 +26,13 @@ class ProviderController extends BaseController
     {
         $data['proveedores'] = $this->model->getAll();
         $data['action'] = $request->params['action'] ?? 'listar';
-        if ($data['action'] == 'editar'){
-            $data['proveedor'] = $this->model->find($request->params['id']);
-        }else{
-            $data['proveedor'] = $this->model->cleanObject($this->model->identifier()->getColumns());
+        $data['proveedor'] = ($data['action'] == 'editar')
+            ? $this->model->find($request->params['id'])
+            :$this->model->cleanObject($this->model->identifier()->getColumns());
+
+        if (empty($data['proveedor'])){
+            $data['action'] ='listar';
+            $data['errors'] = ["El proveedor no existe"];
         }
         return $this->view("admin/providers",$data);
     }

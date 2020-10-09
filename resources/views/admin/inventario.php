@@ -13,6 +13,16 @@
     <?php import('admin/components/navbar'); ?>
     <?php import('admin/components/header'); ?>
 </div>
+<div class="row col-12 d-flex justify-content-center mt-5">
+    <div class="row col-12 d-flex justify-content-center mt-5">
+        <a href="reportes/inventario" target="_blank"  class="mx-2">
+            <button class="btn btn-danger  btn-lg"
+                    data-toggle="tooltip" data-placement="bottom" title="Exportar">
+                <i class="fas fa-file-pdf "></i>
+            </button>
+        </a>
+    </div>
+</div>
 <h1 class="text-center titulo" >Productos en Stock</h1>
 
 <div class="row">

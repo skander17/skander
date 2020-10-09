@@ -6,14 +6,19 @@
     <link rel="stylesheet"  href="<?= assets("/css/estilos.css"); ?>">
     <link rel="stylesheet"  href="<?= assets("/icons/css/all.min.css"); ?>">
     <link rel="stylesheet"  href="<?= assets("/css/bootstrap.min.css"); ?>">
-    <title>Usuarios</title>
+    <title>Clientes</title>
 </head>
 <body>
+<script type="text/javascript" src="<?= assets("/js/jquery.min.js"); ?>"></script>
+
+<!--footer class="row fixed-bottom d-flex  justify-content-center">
+    <h1>Sistema de Administración Trapeca © 2020 </h1>
+</footer-->
 <div class="container-fluid mb-lg-5">
     <?php import('admin/components/navbar'); ?>
     <?php import('admin/components/header'); ?>
 
-    <div class="row col-12 d-flex justify-content-center estadisticas mt-5">
+    <div class="row col-12 d-flex justify-content-center mt-5">
         <div class="row col-12 d-flex justify-content-center mt-5">
             <a href="clientes?action=crear" class="mx-2">
                 <button class="btn btn-success  btn-lg"
@@ -34,25 +39,31 @@
                 </button>
             </a>
         </div>
-
     </div>
+    <h1  class="titulo">
+        <?php if( isset($action)  AND $action !== 'listar') :?>
+             <?=  $action ?> Cliente
+        <?php else: ?>
+            Lista de Clientes
+        <?php endif;?>
+    </h1>
+    <?php if (isset($errors)):?>
+        <?php foreach ($errors as $error): ?>
+            <div class="alert alert-danger row col-4 offset-4 my-2" role="alert">
+                <?=$error?>
+            </div>
+        <?php endforeach; ?>
+    <?php endif;?>
     <?php if( isset($action)  AND $action !== 'listar') :?>
-        <h1  class="titulo"><?= $action ?> Clientes</h1>
         <div class="row mt-3">
             <div class="col-md-6 offset-3">
-                <?php if (isset($errors)):?>
-                    <?php foreach ($errors as $error): ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?=$error?>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif;?>
                 <form action="clientes" method="POST">
                     <?php if ($action == 'editar'): ?>
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="<?= $cliente->id ?>">
                     <?php endif;?>
                     <div class="form-group">
+                        <label for="nombre">Nombre del Cliente</label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
@@ -62,53 +73,74 @@
                             <input type="text" placeholder="Nombre:" name="nombre" id="nombre" class="form-control" value=<?= $cliente->nombre ?> >
                         </div>
                     </div>
-
                     <div class="form-group">
+                        <label for="nombre">Apellidos del Cliente</label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <i class="fas fa-user icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Apellido" id="apellido" name="apellido" class="form-control">
+                            <input type="text" placeholder="Apellido" id="apellido" name="apellido" class="form-control" value=<?= $cliente->apellido ?> >
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="telefono">Telefono de contacto</label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <i class="fas fa-user icon"></i>
+                                    <i class="fas fa-phone icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Cargo" id="cargo" name="cargo" class="form-control">
+                            <input type="text" placeholder="Telefono" id="telefono" name="telefono" class="form-control" value=<?= $cliente->telefono ?> >
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="telefono">Email de contacto</label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <i class="fas fa-envelope icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Correo Electronico" id="email" name="email" class="form-control" value=<?= $cliente->correo ?>>
+                            <input type="text" placeholder="Correo Electronico" id="correo" name="correo" class="form-control" value=<?= $cliente->correo ?>>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Dirección</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-map-marked icon"></i>
+                                </div>
+                            </div>
+                            <input type="text" placeholder="Dirección" id="direccion" name="direccion" class="form-control" value=<?= $cliente->direccion ?>>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dni">DNI</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-address-card icon"></i>
+                                </div>
+                            </div>
+                            <input type="text" placeholder="DNI" id="dni" name="dni" class="form-control" value=<?= $cliente->dni ?>>
                         </div>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block"  style="text-transform: capitalize;">
-                            <?= $action ?> el Usuario
+                            <?= $action ?> el cliente
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     <?php else: ?>
-
-        <h1 class="text-center titulo" >Lista de Clientes</h1>
-
         <div class="row">
             <div class="col-10 offset-1">
-            <table class="tabla mb-5">
-                <thead class="thead">
+                <table class="tabla mb-5">
+                    <thead class="thead">
                     <tr>
                         <th>#</th>
                         <th>Nombre</th>
@@ -147,11 +179,6 @@
     <?php endif;?>
 
 </div>
-
-<!--footer class="row fixed-bottom d-flex  justify-content-center">
-    <h1>Sistema de Administración Trapeca © 2020 </h1>
-</footer-->
-<script type="text/javascript" src="<?= assets("/js/jquery.min.js"); ?>"></script>
 <script src="<?= assets("/js/bootstrap.min.js"); ?>"></script>
 </body>
 </html>

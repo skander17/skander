@@ -9,6 +9,7 @@ use Core\Request\Request;
 
 class InventoryController extends BaseController
 {
+    public $name = "Inventario";
     public function __construct()
     {
         parent::__construct(new Inventory());

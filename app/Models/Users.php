@@ -6,9 +6,9 @@ namespace App\Models;
 class Users extends Model
 {
     protected  $table = "usuarios";
-    protected  $columns = ["id", "nombre","email", "password","status","rol"];
+    protected  $columns = ["id", "nombre","apellido","email", "password","status","rol"];
     protected $hidden = ["password"];
-    protected  $alias = ["id"=>"id", "nombre"=>"Nombre","email"=>"Email","status_name"=>"Estado","rol_nombre"=>"Rol"];
+    protected  $alias = ["id"=>"id", "nombre"=>"Nombre","apellido"=>"Apellido","email"=>"Email","status_name"=>"Estado","rol_nombre"=>"Rol"];
 
     public function getAll(){
         return $this->rawQuery("

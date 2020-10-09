@@ -10,6 +10,8 @@ class InventoryMovement extends Model
     protected $table = "movimiento_inventario";
     protected $primaryKey = "id_movimiento";
     protected $columns = ["id_movimiento","cantidad","usuario","tipo","id_inventario"];
+    protected $alias = ["id_movimiento"=>"Id Movimiento","nombre_prod"=>"Nombre Producto","nombre_cate"=>"Categoría",
+        "cantidad"=>"Cantidad de Operación", "nombre_tipo"=>"Tipo de Operación","nombre_usuario" => "Registrador"];
 
     public function getAll(){
         return $this->rawQuery("

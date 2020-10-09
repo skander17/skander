@@ -13,24 +13,45 @@
     <?php import('admin/components/navbar'); ?>
     <?php import('admin/components/header'); ?>
 
-    <div class="row col-12 d-flex justify-content-center estadisticas mt-5">
-        <div>
-            <a href="movimientos?action=crear" class="btn btn-primary">Agregar</a>
-            <a href="movimientos?action=listar" class="btn btn-success">Lista</a>
+    <div class="row col-12 d-flex justify-content-center mt-5">
+        <div class="row col-12 d-flex justify-content-center mt-5">
+            <a href="movimientos?action=crear" class="mx-2">
+                <button class="btn btn-success  btn-lg"
+                        data-toggle="tooltip" data-placement="bottom" title="Agregar Usuario">
+                    <i class="fas fa-plus-circle "></i>
+                </button>
+            </a>
+            <a href="movimientos?action=listar"  class="mx-2">
+                <button class="btn btn-info btn-lg"
+                        data-toggle="tooltip" data-placement="bottom" title="Listar">
+                    <i class="fas fa-list"></i>
+                </button>
+            </a>
+            <a href="reportes/movimientos" target="_blank"  class="mx-2">
+                <button class="btn btn-danger  btn-lg"
+                        data-toggle="tooltip" data-placement="bottom" title="Exportar">
+                    <i class="fas fa-file-pdf "></i>
+                </button>
+            </a>
         </div>
-
     </div>
+    <h1  class="titulo">
+        <?php if( isset($action)  AND $action !== 'listar') :?>
+            <?=  $action ?> Movimiento
+        <?php else: ?>
+            Lista de Movimientos
+        <?php endif;?>
+    </h1>
+    <?php if (isset($errors)):?>
+        <?php foreach ($errors as $error): ?>
+            <div class="alert alert-danger row col-4 offset-4 my-2" role="alert">
+                <?=$error?>
+            </div>
+        <?php endforeach; ?>
+    <?php endif;?>
     <?php if( isset($action)  AND $action !== 'listar') :?>
-        <h1  class="titulo"><?= $action ?> Movimientos</h1>
         <div class="row mt-3">
             <div class="col-md-6 offset-3">
-                <?php if (isset($errors)):?>
-                    <?php foreach ($errors as $error): ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?=$error?>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif;?>
                 <form action="movimientos" method="POST">
                     <?php if (!empty($movimiento->id_movimiento)): ?>
                         <input type="hidden" name="_method" value="PUT">
@@ -132,9 +153,6 @@
             </div>
         </div>
     <?php else: ?>
-
-        <h1 class="text-center titulo" >Lista de Movimientos</h1>
-
         <div class="row">
             <div class="col-10 offset-1">
                 <table class="tabla mb-5">
@@ -165,8 +183,8 @@
                             <td><?php echo $movimiento['nombre_tipo']?></td>
                             <td><?php echo $movimiento['nombre_usuario']?></td>
                             <!--td>
-                            <a href="movimientos?action=editar&id_movimiento=<?php echo $movimiento['id_movimiento'] ?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a>
-                            </td>
+                            <a href="movimientos?action=editar&id_movimiento=<?php //echo $movimiento['id_movimiento'] ?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a>
+                            </td-->
                         </tr>
                     <?php endforeach;?>
 

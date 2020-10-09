@@ -9,6 +9,8 @@ class Inventory extends Model
     protected $table = "inventario";
     protected $primaryKey = "id";
     protected $columns = ["id","code","id_producto","cantidad"];
+    protected $alias = ["id"=>"Id","code"=>"Codigo","nombre_prod"=>"Nombre Producto","nombre_cate"=>"Categoría",
+        "cantidad"=>"Stock","disponible"=>"Disponible"];
 
 
     public function getAll(){

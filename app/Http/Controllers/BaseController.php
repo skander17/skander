@@ -22,7 +22,8 @@ class BaseController extends Controller
 
     public function report(Request $request){
         $data = $this->model->getAll();
-        $username = Auth::currentUser()->nombre;
+        $current_user = Auth::currentUser();
+        $username = $current_user->nombre . " " . $current_user->apellido;
         $name = "Reporte de $this->name";
         $index = (count($this->model->getAlias()) > 0) ? $this->model->getAlias() : $this->model->getColumns();
         return Report::report()
