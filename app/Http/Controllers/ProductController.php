@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Category;
+use App\Models\Inventory;
 use App\Models\Product;
 use Core\Request\Request;
 
@@ -57,6 +58,8 @@ class ProductController extends BaseController
         }
         $data['disponible'] = isset($data['disponible']) ? 1 : 0;
         $product = $this->model->create($data);
+        $inventory = ["id_producto"=>$product->id,"cantidad"=>0];
+        (new Inventory())->create($inventory);
         return $this->index($request);
     }
     /**

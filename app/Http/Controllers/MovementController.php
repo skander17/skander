@@ -69,7 +69,7 @@ class MovementController extends BaseController
             $data['errors'] = $validations;
             $data['action'] = "crear";
             //TODO se tiene que mandar como objeto, y la función request->all() devuelve un array. por eso se parsea con (object)
-            //TODO tener cuidado con ésto
+            //tener cuidado con ésto
             $data['movimiento'] = (object) $request->all();
         }else{
             $post = $request->all();
