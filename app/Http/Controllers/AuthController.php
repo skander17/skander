@@ -48,8 +48,7 @@ class AuthController extends BaseController
             $val_user = $this->model->rawQuery("SELECT * FROM usuarios WHERE email = ? AND password = ? LIMIT 1",[$usuario,$pass]);
             if (count($val_user)==0){
                 $errores .='<div class="alert alert-danger mt-3 text-center"><i class="far fa-exclamation-triangle mx-5"></i><br>Error: Correo o clave incorrecta.</div>';
-            }
-            if ($val_user[0]['status'] <> 1){
+            }elseif($val_user[0]['status'] <> 1){
                 $errores .='
                 <div class="alert alert-danger text-center">
                     <i class="fas fa-exclamation-triangle mx-4"></i>Error: Usuario bloqueado

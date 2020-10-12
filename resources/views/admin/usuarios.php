@@ -117,7 +117,7 @@
                                 <i class="fas fa-key icon"></i>
                             </div>
                         </div>
-                        <input type="password" placeholder="Contraseña" id="pass" name="pass" class="form-control">
+                        <input type="password" placeholder="Contraseña" id="password" name="password" class="form-control">
                     </div>
                 </div>
                     <div class="form-group">
