@@ -22,6 +22,7 @@ namespace App\Models;
         }
 
         /**
+         * Devuelve un objeto vacío con las propiedades del modelo.
          * @param array $extra
          * @return object
          */

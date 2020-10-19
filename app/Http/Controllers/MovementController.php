@@ -41,6 +41,8 @@ class MovementController extends BaseController
                     $data['movimiento']->$key = $value;
                 }
                 $data['movimiento']->tipo = $request->tipo;
+            }else{
+                $data['productos'] = $this->inventario->getAllExists();
             }
         }
         return $this->view("/admin/movimientos",$data);
@@ -53,35 +55,46 @@ class MovementController extends BaseController
     public function store(Request $request)
     {
         $rules =  [
-            "cantidad"=>"required"
+            "cantidad"=>"required",
+            "id_producto"=>"required",
+            "tipo"=>"required"
         ];
         $messages = [
-            "cantidad.required" => "La cantidad es obligatoria"
+            "cantidad.required" => "La cantidad es obligatoria",
+            "id_producto.required" => "Por favor seleccione un producto",
+            "tipo.required" => "El tipo es requerido"
         ];
         $data = [];
+        $post = $request->all();
         $movimiento = false;
         try {
-            $validations = $this->validator($request->all(), $rules, $messages);
+            $validations = $this->validator($post, $rules, $messages);
         } catch (ValidatorException $e) {
             $validations = ["Error interno al validar"];
         }
+        if (!empty($post['id_producto'])){
+            $inventario = $this->inventario->getInventoryByProduct($post['id_producto']);
+            if(intval($post['cantidad']) > intval($inventario['cantidad'])){
+                $validations= ["La cantidad ingresada es mayor a la existente en stock"];
+            }
+        }
         if (count($validations) > 0){
+            $data['productos'] = $this->inventario->getAllExists();
+            $data['tipos'] = $this->model->getTypes();
+
             $data['errors'] = $validations;
             $data['action'] = "crear";
             //TODO se tiene que mandar como objeto, y la función request->all() devuelve un array. por eso se parsea con (object)
             //tener cuidado con ésto
             $data['movimiento'] = (object) $request->all();
-        }else{
-            $post = $request->all();
-            $post['usuario'] = Auth::currentUser()->id;
-            //se está cargando un producto
-            if (isset($post['id_producto'])){
-                $inventario = $this->inventario->getInventoryByProduct($post['id_producto']);
-                $post['id_inventario'] = $inventario['id'];
-                $this->inventario->updateQuantity($inventario['id'],$post['tipo'],$post['cantidad']);
-            }
-            $movimiento = $this->model->create($post);
+            return $this->view("admin/movimientos",$data);
         }
-        return ($movimiento) ?  $this->index($request) : $this->view("admin/movimientos",$data);
+        //se está cargando un producto
+        $post['id_inventario'] = $inventario['id'];
+        $post['usuario'] = Auth::currentUser()->id;
+        $this->inventario->updateQuantity($inventario['id'],$post['tipo'],$post['cantidad']);
+        $movimiento = $this->model->create($post);
+
+        return ($movimiento) ?  $this->index($request)  : $this->view("admin/movimientos",$data);
     }
 }

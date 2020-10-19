@@ -13,12 +13,26 @@
     <?php import('admin/components/navbar'); ?>
     <?php import('admin/components/header'); ?>
 
-    <div class="row col-12 d-flex justify-content-center estadisticas mt-5">
-        <div>
-            <a href="monedas?action=crear" class="btn btn-primary">Agregar</a>
-            <a href="monedas?action=listar" class="btn btn-success">Lista</a>
-        </div>
 
+    <div class="row col-12 d-flex justify-content-center mt-5">
+        <a href="monedas?action=crear" class="mx-2">
+            <button class="btn btn-success  btn-lg"
+                    data-toggle="tooltip" data-placement="bottom" title="Agregar Usuario">
+                <i class="fas fa-plus-circle "></i>
+            </button>
+        </a>
+        <a href="monedas?action=listar"  class="mx-2">
+            <button class="btn btn-info btn-lg"
+                    data-toggle="tooltip" data-placement="bottom" title="Listar">
+                <i class="fas fa-list"></i>
+            </button>
+        </a>
+        <a href="reportes/monedas" target="_blank"  class="mx-2">
+            <button class="btn btn-danger  btn-lg"
+                    data-toggle="tooltip" data-placement="bottom" title="Exportar">
+                <i class="fas fa-file-pdf "></i>
+            </button>
+        </a>
     </div>
     <?php if( isset($action)  AND $action !== 'listar') :?>
         <h1  class="titulo"><?= $action ?> Monedas</h1>
@@ -49,20 +63,20 @@
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <i class="fas fa-envelope icon"></i>
+                                    <i class="fas fa-dollar-sign icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Correo Electronico" id="email" name="email" class="form-control" value=<?= $moneda->simbolo ?>>
+                            <input type="text" placeholder="Simbolo" id="simbolo" name="simbolo" class="form-control" value=<?= $moneda->simbolo ?>>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <i class="fas fa-envelope icon"></i>
+                                    <i class="fas fa-divide icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Correo Electronico" id="email" name="email" class="form-control" value=<?= $moneda->tasa_cambio ?>>
+                            <input type="number" placeholder="Tasa de Cambio" id="tasa_cambio" name="tasa_cambio" class="form-control" value=<?= $moneda->tasa_cambio ?>>
                         </div>
                     </div>
                     <div class="form-group">
@@ -83,10 +97,8 @@
                     <tr>
                         <th>#</th>
                         <th>Nombre</th>
-                        <th>Correo</th>
-                        <th>Estado</th>
-                        <th>Modificar</th>
-                        <th>Eliminar</th>
+                        <th>Simbolo</th>
+                        <th>Tasa</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -94,8 +106,8 @@
                         <tr>
                             <td><?php echo $key+1?></td>
                             <td><?php echo $moneda['nombre']?></td>
-                            <td><?php echo $moneda['email']?></td>
-                            <td><?php echo $moneda['status']?></td>
+                            <td><?php echo $moneda['simbolo']?></td>
+                            <td><?php echo $moneda['tasa_cambio']?></td>
                             <td><a href="monedas?action=editar&id=<?= $moneda['id_monedas']?>" class="btn btn-warning"> <i class="fas fa-edit"></i></a></td>
                             <td>
                                 <form action="monedas" method="POST">
