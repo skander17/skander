@@ -55,7 +55,7 @@
             $user = false;
             $data = [];
             $data_store= $request->all();
-            $data_store['status'] = intval([$data_store['status']]);
+            $data_store['status'] = intval([$data_store['status']]) ?? 2;
             try {
                 $validations = $this->validator($request->all(), $rules, $messages);
             } catch (ValidatorException $e) {
@@ -79,7 +79,7 @@
                 "email"=>"email"
             ];
             $messages = [
-                "email" => "El Email es obligatorio"
+                "email.email" => "El Email no cumple con el formato."
             ];
             $updated = false;
             $data_update = $request->all();

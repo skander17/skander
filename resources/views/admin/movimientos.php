@@ -68,7 +68,8 @@
                                     <i class="fas fa-box icon"></i>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Nombre" name="nombre_prod" id="nombre_prod" class="form-control" value=<?= $movimiento->nombre_prod ?> >
+                            <input type="text" placeholder="Nombre" name="nombre_prod"
+                                   id="nombre_prod" class="form-control typeahead" value=<?= $movimiento->nombre_prod ?> >
                         </div>
                     </div>
                     <div class="form-group">
@@ -91,26 +92,6 @@
                                 </div>
                             </div>
                             <input type="number" placeholder="Precio Compra" id="precio_c" name="precio_c" class="form-control" value=<?= $movimiento->precio_c ?? 0?>>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="precio_c" class="col-form-label ">Categoría de Producto: </label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-tag icon"></i>
-                                </div>
-                            </div>
-                            <select class="form-control" id="id_cate" name="id_cate">
-                                <option selected value=''>Categoría...</option>
-                                <?php foreach ($categorias as $categoria):?>
-                                    <?php if (isset($movimiento->id_cate) AND $movimiento->id_cate == $categoria['id']) : ?>
-                                        <option selected value="<?=$categoria['id'] ?>"> <?=$categoria['nombre_cate'] ?></option>
-                                    <?php else:?>
-                                        <option value="<?=$categoria['id'] ?>"> <?=$categoria['nombre_cate'] ?></option>
-                                    <?php endif;?>
-                                <?php endforeach;?>
-                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -201,5 +182,6 @@
 </footer-->
 <script type="text/javascript" src="<?= assets("/js/jquery.min.js"); ?>"></script>
 <script src="<?= assets("/js/bootstrap.min.js"); ?>"></script>
+<script src="<?= assets("/js/typeahead.bundle.min.js"); ?>"></script>
 </body>
 </html>

@@ -26,7 +26,7 @@ $router->middleware("AuthMiddleware",function (Router $router) {
         // El crud de ésta tabla se hace por medio de compras, ventas y productos
         $router->get('/inventario','InventoryController@index');
 
-        //Solo definí éstas porque un movimiento no debería borrarse, se aplican otras tecnicas contables para "cancelarse"
+        //Solo se definieron éstas porque un movimiento no debería borrarse, se aplican otras tecnicas contables para "cancelarse"
         $router->get('/movimientos','MovementController@index');
         $router->post('/movimientos','MovementController@store');
         $router->put('/movimientos','MovementController@update');

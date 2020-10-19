@@ -9,6 +9,7 @@ use Core\Request\Request;
 
 class CoinController extends BaseController
 {
+    public $name = "Monedas";
     public function __construct()
     {
         parent::__construct(new Coin());

@@ -46,7 +46,7 @@ trait Validator
             if (!$this->isValidate($validator) ){
                 throw new ValidatorException("The Validator $validator not exist");
             }
-            if (key_exists($item,$data) AND !$this->$validator($item,$data)){
+            if (!$this->$validator($item,$data)){
                 $messagesBag["$item.$validator"] = isset($messages["$item.$validator"])
                     ? $messages["$item.$validator"]
                     : $this->defaultMessage($validator);
@@ -62,11 +62,11 @@ trait Validator
     }
     public function int(string $key, array $data): bool
     {
-        return is_integer($data[$key]);
+        return isset($data[$key]) AND is_integer($data[$key]);
     }
     public function text(string $key, array $data): bool
     {
-        return is_string($data[$key]);
+        return isset($data[$key]) AND is_string($data[$key]);
     }
     public function unique(string $key, array $data): void
     {
@@ -74,7 +74,7 @@ trait Validator
     }
     public function email(string $key, array $data): bool
     {
-        return filter_var($data[$key],FILTER_VALIDATE_EMAIL);
+        return isset($data[$key]) AND filter_var($data[$key],FILTER_VALIDATE_EMAIL);
     }
 
     private function defaultMessage(string $validator): string
